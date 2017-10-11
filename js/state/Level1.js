@@ -1,21 +1,23 @@
+//Estado para juegar nicel 1
 Game.Level1 = function (game) {
 
 };
 
+//Todas mi variables
+var map; //Para el tilemap
 
-var map;
-//Variables para la lavay las plataformas
-var plataforma;
-var vertical;
-var puente;
-var agua;
-var boton;
+//Variables para las capas
+var plataforma; //Para la capa que tiene las plataformas
+var vertical; //Para la capa que tiene partes verticales
+var puente; //Para la capa de los puentes
+var agua; //Para la capa que tiene agua
+var boton; //Para la capa que tiene botones
 
-var player;
-var controls = {};
+//Variables para el juego
+var player; //Variable de nuestro juegador
 var playerSpeed;
-var jumpTimer = 0;
-var cursors = {};
+var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
+var cursors = {};//Variable para el control de nuestro personaje
 
      
 
@@ -23,7 +25,7 @@ var cursors = {};
 Game.Level1.prototype = {
 
     create:function () {
-
+        //Fondo
         this.stage.backgroundColor = '#3A5963';
 
         //this.physics.arcade.gravity.y = 140;
@@ -67,11 +69,7 @@ Game.Level1.prototype = {
 
         player.anchor.setTo(0.5, 0.5);
 
-        /*
-        player.animations.add('idle'[0,1], 1, true);
-        player.animations.add('jump'[2],1, true);
-        player.animations.add('run'[3, 4, 5, 6, 7, 8], 7, true);
-        */
+
         //  Our two animations, walking left and right.
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -84,16 +82,6 @@ Game.Level1.prototype = {
         player.body.collideWorldBounds = true;
         player.checkWorldBounds = true;
         player.events.onOutOfBounds.add(this.death, this);
-
-
-        /*
-        controls = {
-            right: this.input.keyboard.addKey(Phaser.Keyboard.D),
-            left: this.input.keyboard.addKey(Phaser.Keyboard.A),
-            up: this.input.keyboard.addKey(Phaser.Keyboard.W),
-
-        };
-        */
 
         cursors = {
             right: this.input.keyboard.addKey(Phaser.Keyboard.D),
@@ -109,31 +97,6 @@ Game.Level1.prototype = {
         //this.physics.arcade.collide(stars,plataforma);
 
         player.body.velocity.x = 0;
-
-        /*
-        if (controls.up.isDown){
-            player.animation.play('jump');
-        }
-
-        if (controls.right.isDown){
-            player.animation.play('run');
-            player.scale.setTo(1,1);
-            player.body.velocity.x -= playerSpeed;
-        }
-
-        if (controls.left.isDown){
-            player.animation.play('run');
-            player.scale.setTo(-1,1);
-            player.body.velocity.x -= playerSpeed;
-        }
-
-        if (controls.up.isDown  && (player.body.onFloor() || player.body.touching.down) && this.time.now > jumpTimer){
-            player.body.velocity.y = -600;
-            jumpTimer = this.time.now * 750;
-        }
-        */
-        //  Reset the players velocity (movement)
-
 
         if (cursors.left.isDown)
         {
@@ -168,7 +131,7 @@ Game.Level1.prototype = {
 
     death:function(){
         player.kill();
-        //alert("Perdiste!");
+        alert("Perdiste!");
         location.reload();
     },
 }
