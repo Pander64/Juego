@@ -27,7 +27,7 @@ Game.Preloader.prototype = {
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
         this.load.image('opciones','assets/imagenes/Menu/options.jpg');
         this.load.image('gameover','assets/imagenes/Menu/gameover.jpg');
-
+        this.load.image('fondo-01','assets/imagenes/World/fondo-01.png');
 
         //Nivel1
         //Cargar el tilemap.json
@@ -39,12 +39,13 @@ Game.Preloader.prototype = {
         this.load.image('puente', 'assets/imagenes/World/3.png');
         this.load.image('agua', 'assets/imagenes/World/4.png');
         this.load.image('boton', 'assets/imagenes/World/5.png');
+        this.load.image('puerta', 'assets/imagenes/World/6.png');
 
         //Se carga el spritesheet del personaje
         this.load.spritesheet('player','assets/imagenes/Character/conejo1.png', 38, 68);
 
     },
-    
+
     create:function () {
         this.status.setText('Ready!');
 
