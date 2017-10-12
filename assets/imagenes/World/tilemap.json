@@ -63,7 +63,7 @@
         {
          "columns":4,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/opp1_jungle_tiles\/environment\/tiles\/jungle\/tile_jungle_wall_brown.png",
+         "image":"2.png",
          "imageheight":384,
          "imagewidth":128,
          "margin":0,
@@ -76,7 +76,7 @@
         {
          "columns":11,
          "firstgid":49,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/opp1_jungle_tiles\/environment\/tiles\/jungle\/tile_jungle_bridge.png",
+         "image":"3.png",
          "imageheight":96,
          "imagewidth":352,
          "margin":0,
@@ -89,7 +89,7 @@
         {
          "columns":5,
          "firstgid":82,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/opp1_jungle_tiles\/environment\/tiles\/jungle\/tile_jungle_water.png",
+         "image":"4.png",
          "imageheight":128,
          "imagewidth":160,
          "margin":0,
@@ -102,7 +102,7 @@
         {
          "columns":4,
          "firstgid":102,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/opp1_jungle_tiles\/environment\/tiles\/jungle\/tile_jungle_bottom_brown.png",
+         "image":"5.png",
          "imageheight":128,
          "imagewidth":128,
          "margin":0,
@@ -115,7 +115,7 @@
         {
          "columns":6,
          "firstgid":118,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/opp1_jungle_tiles\/environment\/tiles\/jungle\/1.png",
+         "image":"1.png",
          "imageheight":192,
          "imagewidth":192,
          "margin":0,
@@ -128,7 +128,7 @@
         {
          "columns":1,
          "firstgid":154,
-         "image":"..\/..\/..\/..\/..\/..\/Desktop\/6.png",
+         "image":"6.png",
          "imageheight":544,
          "imagewidth":32,
          "margin":0,
