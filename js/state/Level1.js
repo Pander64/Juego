@@ -13,6 +13,7 @@ var puente; //Para la capa de los puentes
 var agua; //Para la capa que tiene agua
 var boton; //Para la capa que tiene botones
 var puerta; //Para la capa de fuego
+var cueva;//Para la zona de ciudad y cueva
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
@@ -48,6 +49,7 @@ Game.Level1.prototype = {
         map.addTilesetImage('4','agua');
         map.addTilesetImage('5','boton');
         map.addTilesetImage('6','puerta');
+        map.addTilesetImage('7','cueva');
 
         //  Creates a layer from the World1 layer in the map data.
         //  A Layer is effectively like a Phaser.Sprite, so is added to the display list.
@@ -57,11 +59,12 @@ Game.Level1.prototype = {
         boton = map.createLayer('Puerta');
         puente = map.createLayer('Puente');
         puerta = map.createLayer('Puerta');
+        cueva = map.createLayer('Cueva');
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
         //map.setCollisionBetween(1,1000,true,plataforma);
         map.setCollisionBetween(1,1000,true,plataforma);
-        map.setCollisionBetween(1,1000,true,puerta);
+        //map.setCollisionBetween(1,1000,true,puerta);
 
         //  This resizes the game world to match the layer dimensions
         plataforma.resizeWorld();
@@ -99,7 +102,7 @@ Game.Level1.prototype = {
 
         this.physics.arcade.collide(player,plataforma);
 
-       this.physics.arcade.collide(player,puerta); //colision con puerta
+       //this.physics.arcade.collide(player,puerta); //colision con puerta
         //this.physics.arcade.collide(stars,plataforma);
 
         player.body.velocity.x = 0;
