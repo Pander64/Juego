@@ -43,17 +43,18 @@ Game.Preloader.prototype = {
 
         //Se carga el spritesheet del personaje
         this.load.spritesheet('player','assets/imagenes/Character/conejo1.png', 38, 68);
+        this.load.spritesheet('playerAttack','assets/imagenes/Character/conejo2.png', 92, 69);
 
     },
 
     create:function () {
-        this.status.setText('Ready!');
+        this.status.setText('Listos!');
 
 
         setTimeout(function () {
             //Se inicia el tercer estado del juego
-            game.state.start('MainMenu');
-        }, 2000);
+            game.state.start('Level1');
+        }, 1000);
 
     }
 };

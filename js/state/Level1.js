@@ -16,6 +16,7 @@ var puerta; //Para la capa de fuego
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
+var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
 var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
 var cursors = {};//Variable para el control de nuestro personaje
@@ -71,6 +72,9 @@ Game.Level1.prototype = {
         //  We need to enable physics on the player
         this.physics.arcade.enable(player);
 
+        //properties when the player is ducked and standing, so we can use in update()
+        var playerAttackImg = this.game.cache.getImage('playerAttack');
+
         player.anchor.setTo(0.5, 0.5);
 
 
@@ -78,8 +82,9 @@ Game.Level1.prototype = {
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
 
-        // follow the player
+        //Camara segir al personaje
         this.camera.follow(player);
+
         //  Player physics properties. Give the little guy a slight bounce.
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 350;
@@ -87,10 +92,12 @@ Game.Level1.prototype = {
         player.checkWorldBounds = true;
         player.events.onOutOfBounds.add(this.death, this);
 
+        // Areglo para manejar las teclas para juegar
         cursors = {
-            right: this.input.keyboard.addKey(Phaser.Keyboard.D),
-            left: this.input.keyboard.addKey(Phaser.Keyboard.A),
-            up: this.input.keyboard.addKey(Phaser.Keyboard.W),
+            right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+            left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+            up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+            spacebar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         };
 
     },
@@ -106,14 +113,14 @@ Game.Level1.prototype = {
 
         if (cursors.left.isDown)
         {
-            //  Move to the left
+            //Mover el personaje a la izquierda
             player.body.velocity.x = -150;
 
             player.animations.play('left');
         }
         else if (cursors.right.isDown)
         {
-            //  Move to the right
+            //Mover el personaje a la derecha
             player.body.velocity.x = 150;
 
             player.animations.play('right');
@@ -132,6 +139,11 @@ Game.Level1.prototype = {
             player.body.velocity.y = -350;
         }
 
+        if (cursors.spacebar.isDown)
+        {
+            this.playerAttack();
+        }
+
 
     },
 
@@ -139,5 +151,10 @@ Game.Level1.prototype = {
         player.kill();
         alert("Perdiste!");
         location.reload();
+    },
+
+    playerAttack: function () {
+        //Change image and update the body size for the physics engine
+        this.player.loadTexture('playerAttack');
     },
 }

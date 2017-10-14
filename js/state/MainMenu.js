@@ -11,7 +11,7 @@ Game.MainMenu.prototype = {
     },
 
     init: function (game) {
-        this.titleText = this.make.text(this.world.centerX, 100, "Game Title", {
+        this.titleText = this.make.text(this.world.centerX, 100, "Piensa", {
             font: 'bold 60pt TheMinion',
             fill: '#FDFFB5',
             align: 'center'
