@@ -40,6 +40,7 @@ Game.Preloader.prototype = {
         this.load.image('agua', 'assets/imagenes/World/4.png');
         this.load.image('boton', 'assets/imagenes/World/5.png');
         this.load.image('puerta', 'assets/imagenes/World/6.png');
+        this.load.image('cueva', 'assets/imagenes/World/7.gif');
 
         //Se carga el spritesheet del personaje
         this.load.spritesheet('player','assets/imagenes/Character/conejo1.png', 38, 68);
