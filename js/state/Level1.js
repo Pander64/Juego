@@ -64,7 +64,7 @@ Game.Level1.prototype = {
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
         //map.setCollisionBetween(1,1000,true,plataforma);
         map.setCollisionBetween(1,1000,true,plataforma);
-        //map.setCollisionBetween(1,1000,true,puerta);
+        map.setCollisionBetween(1,1000,true,puerta);
 
         //  This resizes the game world to match the layer dimensions
         plataforma.resizeWorld();
@@ -102,7 +102,7 @@ Game.Level1.prototype = {
 
         this.physics.arcade.collide(player,plataforma);
 
-       //this.physics.arcade.collide(player,puerta); //colision con puerta
+       this.physics.arcade.collide(player,puerta); //colision con puerta
         //this.physics.arcade.collide(stars,plataforma);
 
         player.body.velocity.x = 0;
