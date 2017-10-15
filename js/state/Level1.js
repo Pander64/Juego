@@ -70,9 +70,15 @@ Game.Level1.prototype = {
 
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
+<<<<<<< HEAD
 
         this.map.setCollisionBetween(1,1000,true,this.plataforma);
         //map.setCollisionBetween(1,1000,true,puerta);
+=======
+        //map.setCollisionBetween(1,1000,true,plataforma);
+        map.setCollisionBetween(1,1000,true,plataforma);
+        map.setCollisionBetween(1,1000,true,puerta);
+>>>>>>> Agustin
 
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
@@ -124,9 +130,16 @@ Game.Level1.prototype = {
             spacebar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         };
 
-        scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
+        //this.fixedToCamera = true;
+
+        scoreText = this.game.add.text(this.camera.x, this.camera.y, 'score: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
 
     },
+
+    /*ChangePlayer: function () {
+      this.player.loadTexture("playerAttack");
+    },*/
 
     createDoors: function() {
         //create doors
@@ -179,11 +192,17 @@ Game.Level1.prototype = {
         });
     },
 
+
     update:function () {
 
-        this.physics.arcade.collide(this.player,this.plataforma);
+        scoreText.x = this.game.camera.x;
+        scoreText.y = this.game.camera.y;
 
-       //this.physics.arcade.collide(player,puerta); //colision con puerta
+        this.physics.arcade.collide(this.player,this.plataforma);
+        //Borrar
+        this.physics.arcade.collide(this.player,this.enemigo);
+
+       this.physics.arcade.collide(player,puerta); //colision con puerta
         //this.physics.arcade.collide(stars,plataforma);
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
@@ -192,25 +211,34 @@ Game.Level1.prototype = {
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
 
+
         this.player.body.velocity.x = 0;
 
         if (cursors.left.isDown)
         {
+
             //Mover el personaje a la izquierda
             this.player.body.velocity.x = -150;
 
             this.player.animations.play('left');
+            this.player.scale.setTo(1, 1);
+
+
         }
         else if (cursors.right.isDown)
         {
+
             //Mover el personaje a la derecha
             this.player.body.velocity.x = 150;
 
             this.player.animations.play('right');
+            this.player.scale.setTo(1, 1);
+
         }
 
         else
         {
+            this.ChangePlayer();
             //  Stand still
             this.player.animations.stop();
 
@@ -219,13 +247,28 @@ Game.Level1.prototype = {
 
         if (cursors.up.isDown && this.player.body.onFloor())
         {
+            this.ChangePlayer();
             this.player.body.velocity.y = -350;
         }
 
-        if (cursors.spacebar.isDown)
+        if (cursors.spacebar.isDown && cursors.right.isDown)
         {
             this.playerAttack();
+
+            this.player.animations.play('right');
+            this.player.scale.setTo(-1, 1);
+
         }
+
+        if (cursors.spacebar.isDown && cursors.left.isDown)
+        {
+            this.playerAttack();
+
+            this.player.animations.play('left');
+            this.player.scale.setTo(1, 1);
+
+        }
+
 
 
     },
@@ -241,10 +284,15 @@ Game.Level1.prototype = {
         this.player.loadTexture('playerAttack');
     },
 
+    ChangePlayer: function () {
+        this.player.loadTexture("player");
+    },
+
     collect: function(player, collectable) {
         console.log('yummy!');
         score += 50;
         scoreText.text = 'Score: ' + score;
+
         //remove sprite
         collectable.destroy();
     },
