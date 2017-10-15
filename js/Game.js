@@ -12,5 +12,6 @@ game.state.add('Level1',Game.Level1);//El juego
 //Se inicia el primer estado del juego
 game.state.start('Boot');
 
+
 //Nota:
 //Los estados de juego son una manera mas facil de administrar el codigo y se puede crar tantos estados como yo quiera

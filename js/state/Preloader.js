@@ -13,6 +13,7 @@ Game.Preloader.prototype = {
         utils.centerGameObjects([this.logo, this.status]);
     },
 
+
     preload:function () {
 
         //Barra de progreso
@@ -23,6 +24,7 @@ Game.Preloader.prototype = {
         this.load.setPreloadSprite(this.loadingBar);
 
 
+
         //Menu
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
         this.load.image('opciones','assets/imagenes/Menu/options.jpg');
@@ -31,7 +33,7 @@ Game.Preloader.prototype = {
 
         //Nivel1
         //Cargar el tilemap.json
-        this.load.tilemap('tilemap','assets/imagenes/World/tilemap.json',null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('level1','assets/imagenes/World/tilemap.json',null, Phaser.Tilemap.TILED_JSON);
 
         //  Se cargan las imagenes del nivel 1
         this.load.image('plataformas', 'assets/imagenes/World/1.png');
@@ -40,22 +42,33 @@ Game.Preloader.prototype = {
         this.load.image('agua', 'assets/imagenes/World/4.png');
         this.load.image('boton', 'assets/imagenes/World/5.png');
         this.load.image('puerta', 'assets/imagenes/World/6.png');
-        this.load.image('cueva', 'assets/imagenes/World/7.gif');
+        this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gift
+        //Objetos con tiled
+        this.load.image('carrot', 'assets/imagenes/World/8.png');
+        this.load.image('browndoor', 'assets/imagenes/World/browndoor.png');
+
+
 
         //Se carga el spritesheet del personaje
         this.load.spritesheet('player','assets/imagenes/Character/conejo1.png', 38, 68);
         this.load.spritesheet('playerAttack','assets/imagenes/Character/conejo2.png', 92, 69);
 
+        //Se carga los enemigos
+        this.load.spritesheet('enemigo','assets/imagenes/Enemy/enemigo1-01.png', 60, 69);
+        this.load.spritesheet('enemigo2','assets/imagenes/Enemy/enemigo2-01.png', 48, 69);
+
     },
 
     create:function () {
-        this.status.setText('Listos!');
+         this.status.setText('Listos!');
+
 
 
         setTimeout(function () {
             //Se inicia el tercer estado del juego
             game.state.start('Level1');
         }, 1000);
+
 
     }
 };
