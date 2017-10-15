@@ -1,8 +1,8 @@
-//Estado para juegar nicel 1
+//Estado para juegar nivel 1
 Game.Level1 = function (game) {
 
 };
-
+console.log("Star level1");
 //Todas mi variables
 var map; //Para el tilemap
 
@@ -15,12 +15,17 @@ var boton; //Para la capa que tiene botones
 var puerta; //Para la capa de fuego
 var cueva;//Para la zona de ciudad y cueva
 
+
 //Variables para el juego
 var player; //Variable de nuestro juegador
 var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
 var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
 var cursors = {};//Variable para el control de nuestro personaje
+
+//Mas variables
+var scoreText;
+var score = 0;
 
 
 
@@ -40,60 +45,76 @@ Game.Level1.prototype = {
         this.physics.arcade.checkCollision.down = false;
 
         //  The 'map' key here is the Loader key given in game.load.tilemap
-        map = this.add.tilemap('tilemap');
+        this.map = this.game.add.tilemap('level1');
 
         //  The first parameter is the tileset name, as specified in the Tiled map editor (and in the tilemap json file)
         //  The second parameter maps this name to the Phaser.Cache key 'tiles'
-        map.addTilesetImage('1','plataformas');
-        map.addTilesetImage('2','vertical');
-        map.addTilesetImage('3','puente');
-        map.addTilesetImage('4','agua');
-        map.addTilesetImage('5','boton');
-        map.addTilesetImage('6','puerta');
-        map.addTilesetImage('7','cueva');
+        this.map.addTilesetImage('1','plataformas');
+        this.map.addTilesetImage('2','vertical');
+        this.map.addTilesetImage('3','puente');
+        this.map.addTilesetImage('4','agua');
+        this.map.addTilesetImage('5','boton');
+        this.map.addTilesetImage('6','puerta');
+        this.map.addTilesetImage('7','cueva');
+
 
         //  Creates a layer from the World1 layer in the map data.
         //  A Layer is effectively like a Phaser.Sprite, so is added to the display list.
-        vertical = map.createLayer('Fondo');
-        agua = map.createLayer('Detalles');
-        plataforma = map.createLayer('Plataforma');
-        boton = map.createLayer('Puerta');
-        puente = map.createLayer('Puente');
-        puerta = map.createLayer('Puerta');
-        cueva = map.createLayer('Cueva');
+        this.vertical = this.map.createLayer('Fondo');
+        this.agua = this.map.createLayer('Detalles');
+        this.plataforma = this.map.createLayer('Plataforma');
+        this.boton = this.map.createLayer('Puerta');
+        this.puente = this.map.createLayer('Puente');
+        this.puerta = this.map.createLayer('Puerta');
+        this.cueva = this.map.createLayer('Cueva');
+
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
-        //map.setCollisionBetween(1,1000,true,plataforma);
-        map.setCollisionBetween(1,1000,true,plataforma);
+
+        this.map.setCollisionBetween(1,1000,true,this.plataforma);
         //map.setCollisionBetween(1,1000,true,puerta);
 
         //  This resizes the game world to match the layer dimensions
-        plataforma.resizeWorld();
+        this.plataforma.resizeWorld();
 
-        player = this.add.sprite(38, this.world.height - 3000, 'player');
+        this.createItems();
+        this.createDoors();
+
+        var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
+
+        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+
+        var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
+
+        this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
+
+
+        this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
+        this.enemigo.animations.play("flying");
 
         //  We need to enable physics on the player
-        this.physics.arcade.enable(player);
+        //this.physics.arcade.enable(player);
+        this.game.physics.arcade.enable(this.player);
 
         //properties when the player is ducked and standing, so we can use in update()
-        var playerAttackImg = this.game.cache.getImage('playerAttack');
+        //var playerAttackImg = this.game.cache.getImage('playerAttack');
 
-        player.anchor.setTo(0.5, 0.5);
+        this.player.anchor.setTo(0.5, 0.5);
 
 
         //  Our two animations, walking left and right.
-        player.animations.add('left', [0, 1, 2, 3], 10, true);
-        player.animations.add('right', [5, 6, 7, 8], 10, true);
+        this.player.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
         //Camara segir al personaje
-        this.camera.follow(player);
+        this.camera.follow(this.player);
 
         //  Player physics properties. Give the little guy a slight bounce.
-        player.body.bounce.y = 0.2;
-        player.body.gravity.y = 350;
-        player.body.collideWorldBounds = true;
-        player.checkWorldBounds = true;
-        player.events.onOutOfBounds.add(this.death, this);
+        this.player.body.bounce.y = 0.2;
+        this.player.body.gravity.y = 350;
+        this.player.body.collideWorldBounds = true;
+        this.player.checkWorldBounds = true;
+        this.player.events.onOutOfBounds.add(this.death, this);
 
         // Areglo para manejar las teclas para juegar
         cursors = {
@@ -103,43 +124,102 @@ Game.Level1.prototype = {
             spacebar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         };
 
+        scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+
+    },
+
+    createDoors: function() {
+        //create doors
+        this.doors = this.game.add.group();
+        this.doors.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('door', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.doors);
+        }, this);
+    },
+
+    createItems: function() {
+        //create items
+        this.items = this.game.add.group();
+        this.items.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('item', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.items);
+        }, this);
+    },
+
+
+
+
+
+    //find objects in a Tiled layer that containt a property called "type" equal to a certain value
+    findObjectsByType: function(type, map, layer) {
+        var result = new Array();
+        map.objects[layer].forEach(function(element){
+            if(element.properties.type === type) {
+                //Phaser uses top left, Tiled bottom left so we have to adjust
+                //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
+                //so they might not be placed in the exact position as in Tiled
+                element.y -= map.tileHeight;
+                result.push(element);
+            }
+        });
+        return result;
+    },
+
+    //create a sprite from an object
+    createFromTiledObject: function(element, group) {
+        var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+        //copy all properties to the sprite
+        Object.keys(element.properties).forEach(function(key){
+            sprite[key] = element.properties[key];
+        });
     },
 
     update:function () {
 
-        this.physics.arcade.collide(player,plataforma);
+        this.physics.arcade.collide(this.player,this.plataforma);
 
        //this.physics.arcade.collide(player,puerta); //colision con puerta
         //this.physics.arcade.collide(stars,plataforma);
 
-        player.body.velocity.x = 0;
+        //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
+        this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+
+        this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
+
+
+        this.player.body.velocity.x = 0;
 
         if (cursors.left.isDown)
         {
             //Mover el personaje a la izquierda
-            player.body.velocity.x = -150;
+            this.player.body.velocity.x = -150;
 
-            player.animations.play('left');
+            this.player.animations.play('left');
         }
         else if (cursors.right.isDown)
         {
             //Mover el personaje a la derecha
-            player.body.velocity.x = 150;
+            this.player.body.velocity.x = 150;
 
-            player.animations.play('right');
+            this.player.animations.play('right');
         }
 
         else
         {
             //  Stand still
-            player.animations.stop();
+            this.player.animations.stop();
 
-            player.frame = 4;
+            this.player.frame = 4;
         }
 
-        if (cursors.up.isDown && player.body.onFloor())
+        if (cursors.up.isDown && this.player.body.onFloor())
         {
-            player.body.velocity.y = -350;
+            this.player.body.velocity.y = -350;
         }
 
         if (cursors.spacebar.isDown)
@@ -151,7 +231,7 @@ Game.Level1.prototype = {
     },
 
     death:function(){
-        player.kill();
+        this.player.kill();
         alert("Perdiste!");
         location.reload();
     },
@@ -160,4 +240,17 @@ Game.Level1.prototype = {
         //Change image and update the body size for the physics engine
         this.player.loadTexture('playerAttack');
     },
+
+    collect: function(player, collectable) {
+        console.log('yummy!');
+        score += 50;
+        scoreText.text = 'Score: ' + score;
+        //remove sprite
+        collectable.destroy();
+    },
+
+    enterDoor: function(player, door) {
+        console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
+    },
+
 }
