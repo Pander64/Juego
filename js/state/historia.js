@@ -1,9 +1,9 @@
-Game.creditos = function(game) {
+Game.historia = function(game) {
 
 };
 
 
-Game.creditos.prototype = {
+Game.historia.prototype = {
 
     menuConfig: {
         startY: 150,
@@ -31,7 +31,7 @@ Game.creditos.prototype = {
         }
         */
         this.stage.disableVisibilityChange = true;
-        this.add.sprite(0, 0, 'creditos');
+        this.add.sprite(0, 0, 'historia');
         this.add.existing(this.titleText);
 
         this.addMenuOption('', function () {
@@ -41,10 +41,10 @@ Game.creditos.prototype = {
         this.addMenuOption('', function () {
             game.state.start("Level1");
         });
-        this.addMenuOption('Aceptar', function () {
-            game.state.start("MainMenu");
+        this.addMenuOption('Entendido', function () {
+            game.state.start("Level1");
         });
     }
 };
 
-Phaser.Utils.mixinPrototype(Game.creditos.prototype, mixins);
+Phaser.Utils.mixinPrototype(Game.historia.prototype, mixins);

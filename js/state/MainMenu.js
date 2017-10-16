@@ -35,7 +35,7 @@ Game.MainMenu.prototype = {
         this.add.existing(this.titleText);
 
         this.addMenuOption('Comenzar', function () {
-            game.state.start("Level1");
+            game.state.start("historia");
         });
 
         this.addMenuOption('Cómo jugar', function () {

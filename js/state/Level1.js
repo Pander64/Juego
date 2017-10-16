@@ -405,7 +405,7 @@ Game.Level1.prototype = {
     },
 
     enterDoor: function(player, door) {
-        console.log('entering door that will take you to '+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
+        game.state.start("final");
     },
 
 }
