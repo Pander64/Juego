@@ -1,9 +1,9 @@
-Game.MainMenu = function(game) {
+Game.tutorial = function(game) {
 
 };
 
 
-Game.MainMenu.prototype = {
+Game.tutorial.prototype = {
 
     menuConfig: {
         startY: 150,
@@ -34,17 +34,17 @@ Game.MainMenu.prototype = {
         this.add.sprite(0, 0, 'menu');
         this.add.existing(this.titleText);
 
-        this.addMenuOption('Comenzar', function () {
+        this.addMenuOption('', function () {
             game.state.start("Level1");
         });
 
-        this.addMenuOption('Cómo jugar', function () {
-            game.state.start("tutorial");
+        this.addMenuOption('', function () {
+            game.state.start("Level1");
         });
-        this.addMenuOption('Creditos', function () {
-            game.state.start("creditos");
+        this.addMenuOption('Aceptar', function () {
+            game.state.start("MainMenu");
         });
     }
 };
 
-Phaser.Utils.mixinPrototype(Game.MainMenu.prototype, mixins);
+Phaser.Utils.mixinPrototype(Game.tutorial.prototype, mixins);
