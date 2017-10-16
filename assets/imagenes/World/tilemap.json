@@ -166,8 +166,29 @@
                  "type":"",
                  "visible":true,
                  "width":57.3333333333333,
-                 "x":481.333333333333,
-                 "y":345.333333333333
+                 "x":766.181818181818,
+                 "y":448.363636363636
+                }, 
+                {
+                 "height":60.6060606060606,
+                 "id":8,
+                 "name":"wall",
+                 "properties":
+                    {
+                     "sprite":"wall",
+                     "type":"pared"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48.4848484848485,
+                 "x":584.848484848485,
+                 "y":324.242424242424
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -197,7 +218,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2017.07.26",

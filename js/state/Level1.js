@@ -1,3 +1,23 @@
+//
+// Copyright 2017, Alexander Barroso <alexander.barroso@utp.ac.pa> (www.github.com/pander64)
+//
+// This file is part of the port to HTML5 of "Abbaye des morts", an original
+// game created by gamig wizard (www.github.com/pander64).
+// (c) 2017 - gamig wizard
+//
+// This program is free software; you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by the Free
+// Software Foundation; either version 2 of the License, or (at your option)
+// any later version.
+//
+// This program is distributed in the hope that it will be useful, but WITHOUT
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+// FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+// more details.
+//
+// You should have received a copy of the GNU General Public License along with
+// this program. If not, see <http://www.gnu.org/licenses/>.
+
 //Estado para juegar nivel 1
 Game.Level1 = function (game) {
 
@@ -26,6 +46,9 @@ var cursors = {};//Variable para el control de nuestro personaje
 //Mas variables
 var scoreText;
 var score = 0;
+
+var enemySpeed = 70;
+var playerJump = 400;
 
 
 
@@ -80,21 +103,36 @@ Game.Level1.prototype = {
 
         this.createItems();
         this.createDoors();
+        //this.createEnemy();
 
         var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
 
         this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
 
+
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
 
-        this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
 
+        this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
 
         this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
         this.enemigo.animations.play("flying");
 
-        //  We need to enable physics on the player
-        //this.physics.arcade.enable(player);
+        // setting enemy anchor point
+        this.enemigo.anchor.set(0.5);
+
+        // enabling ARCADE physics for the enemy
+        this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
+        //Gravedad del enemigo
+        //this.enemigo.body.gravity.y = 350;
+
+        this.enemigo.body.velocity.x = enemySpeed;
+
+        this.enemigo.body.collideWorldBounds = true;
+        this.enemigo.checkWorldBounds = true;
+        //Funcionamiento
+        //this.plataforma.visible = false;
+
         this.game.physics.arcade.enable(this.player);
 
         //properties when the player is ducked and standing, so we can use in update()
@@ -132,10 +170,6 @@ Game.Level1.prototype = {
 
     },
 
-    /*ChangePlayer: function () {
-      this.player.loadTexture("playerAttack");
-    },*/
-
     createDoors: function() {
         //create doors
         this.doors = this.game.add.group();
@@ -157,10 +191,18 @@ Game.Level1.prototype = {
             this.createFromTiledObject(element, this.items);
         }, this);
     },
-
-
-
-
+/*
+    createEnemy: function() {
+        //create items
+        this.Enemy = this.game.add.group();
+        this.Enemy.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.Enemy);
+        }, this);
+    },
+    */
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
     findObjectsByType: function(type, map, layer) {
@@ -195,7 +237,10 @@ Game.Level1.prototype = {
 
         this.physics.arcade.collide(this.player,this.plataforma);
         //Borrar
-        this.physics.arcade.collide(this.player,this.enemigo);
+        //this.enemigo.body.velocity.x = this.enemySpeed;
+        //this.game.physics.arcade.collide(this.enemigo, this.plataforma, this.moveEnemy);
+
+
 
        //this.physics.arcade.collide(player,puerta); //colision con puerta
         //this.physics.arcade.collide(stars,plataforma);
@@ -208,6 +253,54 @@ Game.Level1.prototype = {
 
 
         this.player.body.velocity.x = 0;
+
+        // handling collision between the enemy and the tiles
+        this.game.physics.arcade.collide(this.enemigo, this.plataforma, function(enemigo, plataforma){
+
+
+            // enemy touching a wall on the right
+            if(this.enemigo.body.blocked.right){
+
+                // horizontal flipping enemy sprite
+                this.enemigo.scale.x = -1;
+            }
+
+            // same concept applies to the left
+            if(this.enemigo.body.blocked.left){
+                this.enemigo.scale.x = 1;
+            }
+            /*
+            // check against walls and reverse direction if necessary
+            if (this.enemigo.body.touching.right || this.enemigo.body.blocked.right) {
+                this.enemigo.body.velocity.x = -enemySpeed; // turn left
+            }
+            else if (this.enemigo.body.touching.left || this.enemigo.body.blocked.left) {
+                this.enemigo.body.velocity.x = enemySpeed; // turn right
+            }*/
+
+            // adjusting enemy speed according to the direction it's moving
+            this.enemigo.body.velocity.x = enemySpeed * this.enemigo.scale.x;
+        }, null, this);
+
+
+        // handling collision between enemy and hero
+        this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigo){
+
+            // hero is stomping the enemy if:
+            // hero is touching DOWN
+            // enemy is touching UP
+            if(this.enemigo.body.touching.up && this.player.body.touching.down){
+
+                // in this case just jump again
+                this.player.body.velocity.y =  -playerJump;
+                this.deathEnemigo();
+            }
+            else{
+
+                // any other way to collide on an enemy will restart the game
+                this.game.state.start("Level1");
+            }
+        }, null, this);
 
         if (cursors.left.isDown)
         {
@@ -273,6 +366,18 @@ Game.Level1.prototype = {
         alert("Perdiste!");
         location.reload();
     },
+
+    deathEnemigo:function(){
+        this.enemigo.kill();
+        console.log('yummy!');
+    },
+/*
+    moveEnemy:function (enemigo,plataforma){
+    if(enemigo.enemySpeed>0 && enemigo.x>plataforma.x+plataforma.width/2 || enemigo.enemySpeed<0 && enemigo.x<plataforma.x-plataforma.width/2){
+        enemigo.enemySpeed*=-70;
+    }
+    },
+    */
 
     playerAttack: function () {
         //Change image and update the body size for the physics engine

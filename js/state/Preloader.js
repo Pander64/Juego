@@ -55,7 +55,9 @@ Game.Preloader.prototype = {
 
         //Se carga los enemigos
         this.load.spritesheet('enemigo','assets/imagenes/Enemy/enemigo1-01.png', 60, 69);
-        this.load.spritesheet('enemigo2','assets/imagenes/Enemy/enemigo2-01.png', 48, 69);
+        //this.load.spritesheet('enemigo2','assets/imagenes/Enemy/enemigo2-01.png', 48, 69);
+        //Prueba
+        this.load.image("wall","assets/imagenes/World/wall.png");
 
     },
 
