@@ -41,11 +41,7 @@ Game.MainMenu.prototype = {
         this.addMenuOption('Cómo jugar', function () {
             game.state.start("tutorial");
         });
-<<<<<<< HEAD
-        this.addMenuOption('Creditos', function () {
-=======
         this.addMenuOption('Créditos', function () {
->>>>>>> e2c8a866ca1de578ef0fc0162b29ed640e9d626d
             game.state.start("creditos");
         });
     }
