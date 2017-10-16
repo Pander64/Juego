@@ -33,7 +33,10 @@ var puente; //Para la capa de los puentes
 var agua; //Para la capa que tiene agua
 var boton; //Para la capa que tiene botones
 var puerta; //Para la capa de fuego
+var puerta2; //Para la capa de fuego 2
 var cueva;//Para la zona de ciudad y cueva
+var pipe;//Para la  tuberia
+var lava;//Para  lava
 
 
 //Variables para el juego
@@ -79,6 +82,8 @@ Game.Level1.prototype = {
         this.map.addTilesetImage('5','boton');
         this.map.addTilesetImage('6','puerta');
         this.map.addTilesetImage('7','cueva');
+        this.map.addTilesetImage('10','pipe');
+        this.map.addTilesetImage('11','lava');
 
 
         //  Creates a layer from the World1 layer in the map data.
@@ -89,14 +94,15 @@ Game.Level1.prototype = {
         this.boton = this.map.createLayer('Puerta');
         this.puente = this.map.createLayer('Puente');
         this.puerta = this.map.createLayer('Puerta');
-        this.cueva = this.map.createLayer('Cueva');
+        this.puerta2 = this.map.createLayer('Puerta2');
 
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
 
 
         this.map.setCollisionBetween(1,1000,true,this.plataforma);
-        //this.map.setCollisionBetween(1,1000,true,puerta);
+      /*  this.map.setCollisionBetween(1,1000,true,this.puerta);
+        this.map.setCollisionBetween(1,1000,true,this.puerta2); */
 
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
@@ -242,7 +248,8 @@ Game.Level1.prototype = {
 
 
 
-       //this.physics.arcade.collide(player,puerta); //colision con puerta
+       this.physics.arcade.collide(this.player,this.puerta); //colision con puerta
+       this.physics.arcade.collide(this.player,this.puerta2);
         //this.physics.arcade.collide(stars,plataforma);
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador

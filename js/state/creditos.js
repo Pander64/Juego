@@ -39,10 +39,10 @@ Game.MainMenu.prototype = {
         });
 
         this.addMenuOption('Cómo jugar', function () {
-            game.state.start("tutorial");
+            game.state.start("Level1");
         });
         this.addMenuOption('Creditos', function () {
-            game.state.start("creditos");
+            game.state.start("Level1");
         });
     }
 };
