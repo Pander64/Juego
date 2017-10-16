@@ -42,9 +42,11 @@ Game.Preloader.prototype = {
         this.load.image('agua', 'assets/imagenes/World/4.png');
         this.load.image('boton', 'assets/imagenes/World/5.png');
         this.load.image('puerta', 'assets/imagenes/World/6.png');
-        this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gift
+        this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gif
         //Objetos con tiled
         this.load.image('carrot', 'assets/imagenes/World/8.png');
+        this.load.image('pipe', 'assets/imagenes/World/10.png');
+        this.load.image('lava', 'assets/imagenes/World/11.png');
         this.load.image('browndoor', 'assets/imagenes/World/browndoor.png');
 
 
