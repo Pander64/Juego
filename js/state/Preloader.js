@@ -27,6 +27,7 @@ Game.Preloader.prototype = {
 
         //Menu
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
+        this.load.image('tutorial','assets/imagenes/Menu/tutorial.jpg');
         this.load.image('opciones','assets/imagenes/Menu/options.jpg');
         this.load.image('gameover','assets/imagenes/Menu/gameover.jpg');
         this.load.image('fondo-01','assets/imagenes/World/fondo-01.png');
@@ -42,9 +43,11 @@ Game.Preloader.prototype = {
         this.load.image('agua', 'assets/imagenes/World/4.png');
         this.load.image('boton', 'assets/imagenes/World/5.png');
         this.load.image('puerta', 'assets/imagenes/World/6.png');
-        this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gift
+        this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gif
         //Objetos con tiled
         this.load.image('carrot', 'assets/imagenes/World/8.png');
+        this.load.image('pipe', 'assets/imagenes/World/10.png');
+        this.load.image('lava', 'assets/imagenes/World/11.png');
         this.load.image('browndoor', 'assets/imagenes/World/browndoor.png');
 
 
@@ -55,7 +58,9 @@ Game.Preloader.prototype = {
 
         //Se carga los enemigos
         this.load.spritesheet('enemigo','assets/imagenes/Enemy/enemigo1-01.png', 60, 69);
-        this.load.spritesheet('enemigo2','assets/imagenes/Enemy/enemigo2-01.png', 48, 69);
+        //this.load.spritesheet('enemigo2','assets/imagenes/Enemy/enemigo2-01.png', 48, 69);
+        //Prueba
+        this.load.image("wall","assets/imagenes/World/wall.png");
 
     },
 
@@ -66,7 +71,7 @@ Game.Preloader.prototype = {
 
         setTimeout(function () {
             //Se inicia el tercer estado del juego
-            game.state.start('Level1');
+            game.state.start('MainMenu');
         }, 1000);
 
 
