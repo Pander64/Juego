@@ -41,6 +41,7 @@ var lava;//Para  lava
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
+var enemigo;
 var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
 var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
@@ -95,6 +96,10 @@ Game.Level1.prototype = {
         this.puente = this.map.createLayer('Puente');
         this.puerta = this.map.createLayer('Puerta');
         this.puerta2 = this.map.createLayer('Puerta2');
+<<<<<<< HEAD
+=======
+        this.invisible = this.map.createLayer('Invisible');
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
 
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
@@ -107,15 +112,16 @@ Game.Level1.prototype = {
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
 
+        this.createEnemy();
         this.createItems();
         this.createDoors();
+<<<<<<< HEAD
         //this.createEnemy();
-
-        var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
-
-        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-
-
+=======
+        this.createR();
+        //this.createE();
+/*
+        //this.createEnemy();
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
 
 
@@ -136,9 +142,45 @@ Game.Level1.prototype = {
 
         this.enemigo.body.collideWorldBounds = true;
         this.enemigo.checkWorldBounds = true;
+        */
+
+
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
+
+        var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
+
+        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+
+<<<<<<< HEAD
+
+        var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
+
+=======
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
+
+        this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
+
         //Funcionamiento
         //this.plataforma.visible = false;
 
+<<<<<<< HEAD
+        // setting enemy anchor point
+        this.enemigo.anchor.set(0.5);
+
+        // enabling ARCADE physics for the enemy
+        this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
+        //Gravedad del enemigo
+        //this.enemigo.body.gravity.y = 350;
+
+        this.enemigo.body.velocity.x = enemySpeed;
+
+        this.enemigo.body.collideWorldBounds = true;
+        this.enemigo.checkWorldBounds = true;
+        //Funcionamiento
+        //this.plataforma.visible = false;
+
+=======
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
         this.game.physics.arcade.enable(this.player);
 
         //properties when the player is ducked and standing, so we can use in update()
@@ -197,6 +239,7 @@ Game.Level1.prototype = {
             this.createFromTiledObject(element, this.items);
         }, this);
     },
+<<<<<<< HEAD
 /*
     createEnemy: function() {
         //create items
@@ -209,6 +252,63 @@ Game.Level1.prototype = {
         }, this);
     },
     */
+=======
+
+    createR: function() {
+        //create items
+        this.rec = this.game.add.group();
+        this.rec.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('premio', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.rec);
+        }, this);
+    },
+/*
+    createE: function() {
+        //create items
+        this.enemigo = this.game.add.group();
+        this.enemigo.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.enemigo);
+        }, this);
+    },
+*/
+
+
+    createEnemy: function() {
+        //create items
+         for(i = 0; i < 2; i++)
+         {
+
+             var enemy = ["enemy", "enemy1"];
+             var name = this.findObjectsByType(enemy[i], this.map, 'ObjectLayer1');
+
+             this.enemigo = this.game.add.sprite(name[0].x, name[0].y, 'enemigo');
+
+             this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
+             this.enemigo.animations.play("flying");
+
+             // setting enemy anchor point
+             this.enemigo.anchor.set(0.5);
+
+             // enabling ARCADE physics for the enemy
+             this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
+             //Gravedad del enemigo
+             this.enemigo.body.gravity.y = 9;
+
+             this.enemigo.body.velocity.x = enemySpeed;
+
+             this.enemigo.body.collideWorldBounds = true;
+             this.enemigo.checkWorldBounds = true;
+
+
+         }
+    },
+
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
     findObjectsByType: function(type, map, layer) {
@@ -244,10 +344,17 @@ Game.Level1.prototype = {
         this.physics.arcade.collide(this.player,this.plataforma);
         //Borrar
         //this.enemigo.body.velocity.x = this.enemySpeed;
+<<<<<<< HEAD
         //this.game.physics.arcade.collide(this.enemigo, this.plataforma, this.moveEnemy);
 
 
 
+=======
+        this.game.physics.arcade.collide(this.enemigo, this.plataforma);
+
+
+
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
        this.physics.arcade.collide(this.player,this.puerta); //colision con puerta
        this.physics.arcade.collide(this.player,this.puerta2);
         //this.physics.arcade.collide(stars,plataforma);
@@ -272,6 +379,15 @@ Game.Level1.prototype = {
                 this.enemigo.scale.x = -1;
             }
 
+<<<<<<< HEAD
+=======
+            if(this.enemigo.body.blocked.down){
+
+                // horizontal flipping enemy sprite
+                this.enemigo.scale.x = -1;
+            }
+
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
             // same concept applies to the left
             if(this.enemigo.body.blocked.left){
                 this.enemigo.scale.x = 1;

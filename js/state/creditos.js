@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 Game.creditos = function(game) {
+=======
+Game.MainMenu = function(game) {
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
 
 };
 
 
+<<<<<<< HEAD
 Game.creditos.prototype = {
+=======
+Game.MainMenu.prototype = {
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
 
     menuConfig: {
         startY: 150,
@@ -31,6 +39,7 @@ Game.creditos.prototype = {
         }
         */
         this.stage.disableVisibilityChange = true;
+<<<<<<< HEAD
         this.add.sprite(0, 0, 'creditos');
         this.add.existing(this.titleText);
 
@@ -43,8 +52,26 @@ Game.creditos.prototype = {
         });
         this.addMenuOption('Aceptar', function () {
             game.state.start("MainMenu");
+=======
+        this.add.sprite(0, 0, 'menu');
+        this.add.existing(this.titleText);
+
+        this.addMenuOption('Comenzar', function () {
+            game.state.start("Level1");
+        });
+
+        this.addMenuOption('Cómo jugar', function () {
+            game.state.start("Level1");
+        });
+        this.addMenuOption('Creditos', function () {
+            game.state.start("Level1");
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
         });
     }
 };
 
+<<<<<<< HEAD
 Phaser.Utils.mixinPrototype(Game.creditos.prototype, mixins);
+=======
+Phaser.Utils.mixinPrototype(Game.MainMenu.prototype, mixins);
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58

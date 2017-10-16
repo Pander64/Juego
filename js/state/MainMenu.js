@@ -35,13 +35,21 @@ Game.MainMenu.prototype = {
         this.add.existing(this.titleText);
 
         this.addMenuOption('Comenzar', function () {
+<<<<<<< HEAD
             game.state.start("historia");
+=======
+            game.state.start("Level1");
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
         });
 
         this.addMenuOption('Cómo jugar', function () {
             game.state.start("tutorial");
         });
+<<<<<<< HEAD
         this.addMenuOption('Créditos', function () {
+=======
+        this.addMenuOption('Creditos', function () {
+>>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
             game.state.start("creditos");
         });
     }
