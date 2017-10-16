@@ -41,6 +41,7 @@ var lava;//Para  lava
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
+var enemigo;
 var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
 var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
@@ -95,6 +96,7 @@ Game.Level1.prototype = {
         this.puente = this.map.createLayer('Puente');
         this.puerta = this.map.createLayer('Puerta');
         this.puerta2 = this.map.createLayer('Puerta2');
+        this.invisible = this.map.createLayer('Invisible');
 
 
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
@@ -107,15 +109,13 @@ Game.Level1.prototype = {
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
 
+        this.createEnemy();
         this.createItems();
         this.createDoors();
+        this.createR();
+        //this.createE();
+/*
         //this.createEnemy();
-
-        var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
-
-        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-
-
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
 
 
@@ -136,6 +136,16 @@ Game.Level1.prototype = {
 
         this.enemigo.body.collideWorldBounds = true;
         this.enemigo.checkWorldBounds = true;
+        */
+
+
+
+        var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
+
+        this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+
+
+
         //Funcionamiento
         //this.plataforma.visible = false;
 
@@ -197,18 +207,61 @@ Game.Level1.prototype = {
             this.createFromTiledObject(element, this.items);
         }, this);
     },
-/*
-    createEnemy: function() {
+
+    createR: function() {
         //create items
-        this.Enemy = this.game.add.group();
-        this.Enemy.enableBody = true;
+        this.rec = this.game.add.group();
+        this.rec.enableBody = true;
+        //var item;
+        result = this.findObjectsByType('premio', this.map, 'ObjectLayer1');
+        result.forEach(function(element){
+            this.createFromTiledObject(element, this.rec);
+        }, this);
+    },
+/*
+    createE: function() {
+        //create items
+        this.enemigo = this.game.add.group();
+        this.enemigo.enableBody = true;
         //var item;
         result = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
         result.forEach(function(element){
-            this.createFromTiledObject(element, this.Enemy);
+            this.createFromTiledObject(element, this.enemigo);
         }, this);
     },
-    */
+*/
+
+
+    createEnemy: function() {
+        //create items
+         for(i = 0; i < 2; i++)
+         {
+
+             var enemy = ["enemy", "enemy1"];
+             var name = this.findObjectsByType(enemy[i], this.map, 'ObjectLayer1');
+
+             this.enemigo = this.game.add.sprite(name[0].x, name[0].y, 'enemigo');
+
+             this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
+             this.enemigo.animations.play("flying");
+
+             // setting enemy anchor point
+             this.enemigo.anchor.set(0.5);
+
+             // enabling ARCADE physics for the enemy
+             this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
+             //Gravedad del enemigo
+             this.enemigo.body.gravity.y = 9;
+
+             this.enemigo.body.velocity.x = enemySpeed;
+
+             this.enemigo.body.collideWorldBounds = true;
+             this.enemigo.checkWorldBounds = true;
+
+
+         }
+    },
+
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
     findObjectsByType: function(type, map, layer) {
@@ -244,7 +297,7 @@ Game.Level1.prototype = {
         this.physics.arcade.collide(this.player,this.plataforma);
         //Borrar
         //this.enemigo.body.velocity.x = this.enemySpeed;
-        //this.game.physics.arcade.collide(this.enemigo, this.plataforma, this.moveEnemy);
+        this.game.physics.arcade.collide(this.enemigo, this.plataforma);
 
 
 
@@ -267,6 +320,12 @@ Game.Level1.prototype = {
 
             // enemy touching a wall on the right
             if(this.enemigo.body.blocked.right){
+
+                // horizontal flipping enemy sprite
+                this.enemigo.scale.x = -1;
+            }
+
+            if(this.enemigo.body.blocked.down){
 
                 // horizontal flipping enemy sprite
                 this.enemigo.scale.x = -1;
