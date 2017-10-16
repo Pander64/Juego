@@ -27,6 +27,7 @@ Game.Preloader.prototype = {
 
         //Menu
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
+        this.load.image('tutorial','assets/imagenes/Menu/tutorial.jpg');
         this.load.image('opciones','assets/imagenes/Menu/options.jpg');
         this.load.image('gameover','assets/imagenes/Menu/gameover.jpg');
         this.load.image('fondo-01','assets/imagenes/World/fondo-01.png');

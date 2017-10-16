@@ -31,7 +31,7 @@ Game.tutorial.prototype = {
         }
         */
         this.stage.disableVisibilityChange = true;
-        this.add.sprite(0, 0, 'menu');
+        this.add.sprite(0, 0, 'tutorial');
         this.add.existing(this.titleText);
 
         this.addMenuOption('', function () {
