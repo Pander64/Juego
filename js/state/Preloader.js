@@ -27,16 +27,12 @@ Game.Preloader.prototype = {
 
         //Menu
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
-<<<<<<< HEAD
         this.load.image('historia','assets/imagenes/Menu/historia.jpg');
         this.load.image('tutorial','assets/imagenes/Menu/tutorial.jpg');
         this.load.image('creditos','assets/imagenes/Menu/creditos.jpg');
         this.load.image('final','assets/imagenes/Menu/final.jpg');
-=======
-        this.load.image('tutorial','assets/imagenes/Menu/tutorial.jpg');
->>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
-        this.load.image('opciones','assets/imagenes/Menu/options.jpg');
-        this.load.image('gameover','assets/imagenes/Menu/gameover.jpg');
+        //this.load.image('opciones','assets/imagenes/Menu/options.jpg');
+        //this.load.image('gameover','assets/imagenes/Menu/gameover.jpg');
         this.load.image('fondo-01','assets/imagenes/World/fondo-01.png');
 
         //Nivel1
@@ -53,10 +49,8 @@ Game.Preloader.prototype = {
         this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gif
         //Objetos con tiled
         this.load.image('carrot', 'assets/imagenes/World/8.png');
-<<<<<<< HEAD
-=======
+
         this.load.image('check', 'assets/imagenes/World/check.png');
->>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
         this.load.image('pipe', 'assets/imagenes/World/10.png');
         this.load.image('lava', 'assets/imagenes/World/11.png');
         this.load.image('browndoor', 'assets/imagenes/World/browndoor.png');
