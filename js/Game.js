@@ -7,11 +7,8 @@ var game  = new Phaser.Game(800,450,Phaser.AUTO,'');
 game.state.add('Boot',Game.Boot); //Mostrar la barra de cargando del juego
 game.state.add('Preloader',Game.Preloader); //Se cargara los sonidos e imagenes del juego
 game.state.add('MainMenu',Game.MainMenu);//Se muestra el menú inicial
-<<<<<<< HEAD
 game.state.add('historia',Game.historia);//Se muestra historia
 game.state.add('final',Game.final);//Se muestra final
-=======
->>>>>>> 3157c09fc0b9f595feb5a89b2d14bcca8c3b0d58
 game.state.add('creditos',Game.creditos);//Se muestra creditos
 game.state.add('tutorial',Game.tutorial);//Se muestra tutorial
 game.state.add('Level1',Game.Level1);//El juego
