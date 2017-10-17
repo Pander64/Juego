@@ -165,23 +165,23 @@ Game.Level1.prototype = {
         //this.enemy = this.enemigo.create(result1[0].x, result1[0].y, 'enemigo')
 
 
-        //Crear la persona en el mapa
-        /*for (var i = 0; i < 2; i++){
+        for (var i = 0; i < 5; i++){
             var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
             //eval(" var persona" + i);
             // noinspection JSAnnotator
-            eval("var persona" + i = this.game.add.sprite(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]));
-        }*/
-        var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
+            this.persona = this.game.add.button(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]);
+            this.persona.input.up = true;
+            this.persona.scale.setTo(-1, 1);
+            this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+        }
+      /*  var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
         //eval(" var persona" + i);
         // noinspection JSAnnotator
         var i = "1";
         eval("var persona" + i);
         persona1 = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, "persona1");
-        //this.persona.input.up = true;
-        //this.persona.scale.setTo(-1, 1);
-        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
-        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+
+\*/
 
         //Crear el dialogo en el mapa
 
