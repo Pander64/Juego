@@ -67,6 +67,195 @@
                  "width":32,
                  "x":494,
                  "y":184
+                }, 
+                {
+                 "height":24,
+                 "id":82,
+                 "name":"cerrar2",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1521.33333333333,
+                 "y":1538
+                }, 
+                {
+                 "height":24,
+                 "id":83,
+                 "name":"cerrar3",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":2948,
+                 "y":912.666666666667
+                }, 
+                {
+                 "height":24,
+                 "id":84,
+                 "name":"cerrar4",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":4563.33333333333,
+                 "y":1688
+                }, 
+                {
+                 "height":24,
+                 "id":85,
+                 "name":"cerrar5",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":4434,
+                 "y":29.3333333333333
+                }, 
+                {
+                 "height":24,
+                 "id":86,
+                 "name":"cerrar6",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":4626.66666666667,
+                 "y":34.6666666666667
+                }, 
+                {
+                 "height":12,
+                 "id":87,
+                 "name":"info1",
+                 "properties":
+                    {
+                     "sprite":"persona1",
+                     "type":"persona"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40.6666666666666,
+                 "x":1394,
+                 "y":1665.33333333333
+                }, 
+                {
+                 "height":12,
+                 "id":88,
+                 "name":"info2",
+                 "properties":
+                    {
+                     "sprite":"persona2",
+                     "type":"persona"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40.6666666666666,
+                 "x":2832,
+                 "y":1031.33333333333
+                }, 
+                {
+                 "height":12,
+                 "id":89,
+                 "name":"info3",
+                 "properties":
+                    {
+                     "sprite":"persona3",
+                     "type":"persona"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40.6666666666666,
+                 "x":4440,
+                 "y":1799.33333333333
+                }, 
+                {
+                 "height":12,
+                 "id":90,
+                 "name":"info4",
+                 "properties":
+                    {
+                     "sprite":"persona4",
+                     "type":"persona"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40.6666666666666,
+                 "x":4498,
+                 "y":195.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -144,7 +333,7 @@
                  "y":54.6666666666667
                 }, 
                 {
-                 "height":72.7272727272727,
+                 "height":27.2727272727273,
                  "id":22,
                  "name":"r",
                  "properties":
@@ -272,8 +461,8 @@
                  "type":"",
                  "visible":true,
                  "width":81.8181818181818,
-                 "x":1318.18181818182,
-                 "y":1572.72727272727
+                 "x":1284.84848484849,
+                 "y":1602.0606060606
                 }, 
                 {
                  "height":69.6969696969695,
@@ -295,8 +484,8 @@
                  "type":"",
                  "visible":true,
                  "width":72.7272727272727,
-                 "x":1563.63636363636,
-                 "y":1542.42424242424
+                 "x":1533.63636363636,
+                 "y":1522.42424242424
                 }, 
                 {
                  "height":69.6969696969697,
@@ -318,8 +507,8 @@
                  "type":"",
                  "visible":true,
                  "width":90.909090909091,
-                 "x":2690.90909090909,
-                 "y":951.515151515152
+                 "x":2669.57575757576,
+                 "y":987.515151515152
                 }, 
                 {
                  "height":72.7272727272726,
@@ -341,8 +530,8 @@
                  "type":"",
                  "visible":true,
                  "width":87.878787878788,
-                 "x":3978.78787878788,
-                 "y":957.575757575758
+                 "x":3972.12121212121,
+                 "y":969.575757575758
                 }, 
                 {
                  "height":87.878787878788,
@@ -556,7 +745,7 @@
                  "properties":
                     {
                      "sprite":"enemigo",
-                     "type":"enemy1"
+                     "type":"enemy"
                     },
                  "propertytypes":
                     {
@@ -933,7 +1122,7 @@
                 {
                  "height":103.030303030303,
                  "id":65,
-                 "name":"popup",
+                 "name":"popup1",
                  "properties":
                     {
                      "sprite":"dialogo1",
@@ -950,6 +1139,193 @@
                  "width":172.727272727273,
                  "x":341.969696969697,
                  "y":261.757575757576
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":74,
+                 "name":"popupR1",
+                 "properties":
+                    {
+                     "sprite":"dialogo7",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":217.969696969697,
+                 "y":885.757575757576
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":75,
+                 "name":"popupR2",
+                 "properties":
+                    {
+                     "sprite":"dialogo8",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":3813.9696969697,
+                 "y":1159.75757575758
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":76,
+                 "name":"popupR3",
+                 "properties":
+                    {
+                     "sprite":"dialogo9",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":4837.30303030303,
+                 "y":9.75757575757598
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":77,
+                 "name":"popup2",
+                 "properties":
+                    {
+                     "sprite":"dialogo2",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":1391.9696969697,
+                 "y":1528.42424242424
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":78,
+                 "name":"popup3",
+                 "properties":
+                    {
+                     "sprite":"dialogo3",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":2821.9696969697,
+                 "y":899.757575757576
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":79,
+                 "name":"popup4",
+                 "properties":
+                    {
+                     "sprite":"dialogo4",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":4442.63636363636,
+                 "y":1673.75757575758
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":80,
+                 "name":"popup5",
+                 "properties":
+                    {
+                     "sprite":"dialogo5",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":4301.9696969697,
+                 "y":19.757575757576
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":81,
+                 "name":"popup6",
+                 "properties":
+                    {
+                     "sprite":"dialogo6",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":4501.9696969697,
+                 "y":15.757575757576
+                }, 
+                {
+                 "height":57.3333333333333,
+                 "id":91,
+                 "name":"score",
+                 "properties":
+                    {
+                     "type":"scoreR"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":164,
+                 "x":478.909090909091,
+                 "y":51.6363636363637
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1012,7 +1388,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":74,
+ "nextobjectid":92,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
