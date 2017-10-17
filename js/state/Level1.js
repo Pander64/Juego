@@ -41,6 +41,7 @@ var lava;//Para  lava
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
+var playerAttack;
 var enemigo;
 var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
@@ -61,6 +62,17 @@ Game.Level1.prototype = {
 
     create:function () {
         //Fondo
+        game.sound.stopAll();
+        music = game.add.audio('game');
+        salto = game.add.audio('salto');
+        golpe1 = game.add.audio('golpe1');
+        golpe2 = game.add.audio('golpe2');
+        carrot = game.add.audio('carrot');
+        r = game.add.audio('r');
+        death = game.add.audio('death');
+        music.stop();
+        music.loop = true;
+        music.play();
           game.add.sprite(0, 0, 'fondo-01');
 
         //this.physics.arcade.gravity.y = 140;
@@ -158,7 +170,6 @@ Game.Level1.prototype = {
         //  Our two animations, walking left and right.
         this.player.animations.add('left', [0, 1, 2, 3], 10, true);
         this.player.animations.add('right', [5, 6, 7, 8], 10, true);
-
         //Camara segir al personaje
         this.camera.follow(this.player);
 
@@ -359,6 +370,7 @@ Game.Level1.prototype = {
             else{
 
                 // any other way to collide on an enemy will restart the game
+                death.play();
                 this.game.state.start("Level1");
             }
         }, null, this);
@@ -396,6 +408,7 @@ Game.Level1.prototype = {
 
         if (cursors.up.isDown && this.player.body.onFloor())
         {
+          salto.play();
             this.ChangePlayer();
             this.player.body.velocity.y = -350;
         }
@@ -403,8 +416,9 @@ Game.Level1.prototype = {
         if (cursors.spacebar.isDown && cursors.right.isDown)
         {
             this.playerAttack();
+            golpe1.play();
 
-            this.player.animations.play('right');
+            this.player.animations.play();
             this.player.scale.setTo(-1, 1);
 
         }
@@ -412,8 +426,9 @@ Game.Level1.prototype = {
         if (cursors.spacebar.isDown && cursors.left.isDown)
         {
             this.playerAttack();
+            golpe2.play();
 
-            this.player.animations.play('left');
+            this.player.animations.play();
             this.player.scale.setTo(1, 1);
 
         }
@@ -423,9 +438,8 @@ Game.Level1.prototype = {
     },
 
     death:function(){
-        this.player.kill();
-        alert("Perdiste!");
-        location.reload();
+        death.play();
+        this.game.state.start("Level1");
     },
 
     deathEnemigo:function(){
@@ -443,6 +457,8 @@ Game.Level1.prototype = {
     playerAttack: function () {
         //Change image and update the body size for the physics engine
         this.player.loadTexture('playerAttack');
+        this.player.animations.add('left', [0, 1, 2], 10, true);
+        this.player.animations.add('right', [4,5,6], 10, true);
     },
 
     ChangePlayer: function () {
@@ -453,7 +469,7 @@ Game.Level1.prototype = {
         console.log('yummy!');
         score += 50;
         scoreText.text = 'Score: ' + score;
-
+       carrot.play();
         //remove sprite
         collectable.destroy();
     },

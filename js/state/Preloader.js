@@ -23,6 +23,14 @@ Game.Preloader.prototype = {
         game.add.existing(this.status);
         this.load.setPreloadSprite(this.loadingBar);
 
+        this.game.load.audio('menu', ['assets/musica/intro.mp3']);
+        this.game.load.audio('game', ['assets/musica/game.mp3']);
+        this.game.load.audio('salto', ['assets/musica/salto.mp3']);
+        this.game.load.audio('golpe1', ['assets/musica/golpe1.wav']);
+        this.game.load.audio('golpe2', ['assets/musica/golpe2.wav']);
+        this.game.load.audio('carrot', ['assets/musica/carrot.wav']);
+        this.game.load.audio('r', ['assets/musica/r.wav']);
+        this.game.load.audio('death', ['assets/musica/death.wav']);
 
 
         //Menu
