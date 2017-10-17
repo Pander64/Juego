@@ -42,6 +42,7 @@ var lava;//Para  lava
 //Variables para el juego
 var player; //Variable de nuestro juegador
 var enemigo;
+var enemy;
 var player2; //Variable de nuestro juegador cuando salta
 var playerSpeed;
 var jumpTimer = 0; //Variable para poner en 0 al saltar nuestro personaje
@@ -103,23 +104,28 @@ Game.Level1.prototype = {
 
 
         this.map.setCollisionBetween(1,1000,true,this.plataforma);
+        this.map.setCollisionBetween(1,1000,true,this.invisible);
       /*  this.map.setCollisionBetween(1,1000,true,this.puerta);
         this.map.setCollisionBetween(1,1000,true,this.puerta2); */
 
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
+        this.invisible.resizeWorld();
 
-        this.createEnemy();
+        //this.createEnemy();
         this.createItems();
         this.createDoors();
         this.createR();
         //this.createE();
-/*
+
         //this.createEnemy();
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
 
-
         this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
+
+        //this.enemigo = this.game.add.group();
+
+        //this.enemy = this.enemigo.create(result1[0].x, result1[0].y, 'enemigo')
 
         this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
         this.enemigo.animations.play("flying");
@@ -129,14 +135,40 @@ Game.Level1.prototype = {
 
         // enabling ARCADE physics for the enemy
         this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
-        //Gravedad del enemigo
-        //this.enemigo.body.gravity.y = 350;
 
+        // setting enemy horizontal speed
         this.enemigo.body.velocity.x = enemySpeed;
 
         this.enemigo.body.collideWorldBounds = true;
         this.enemigo.checkWorldBounds = true;
-        */
+
+
+        //Crear la persona en el mapa
+        var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
+
+        this.persona = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, 'persona1');
+
+        this.persona.scale.setTo(-1, 1);
+
+        //Crear el dialogo en el mapa
+        var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
+
+        this.dialogo = this.game.add.sprite(resultadoD[0].x, resultadoD[0].y, 'dialogo1');
+
+        this.dialogo.anchor.setTo(0.5, 0.5);
+
+        //Cerrar
+        var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
+
+        this.cerrar = this.game.add.sprite(resultadoC[0].x, resultadoC[0].y, 'cerrar1');
+
+        this.cerrar.anchor.setTo(0.5, 0.5);
+
+
+
+
+
+        //Crear al player
 
         var result = this.findObjectsByType('playerStart', this.map, 'ObjectLayer1')
 
@@ -144,8 +176,8 @@ Game.Level1.prototype = {
 
         //this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
 
-        //Funcionamiento
-        //this.plataforma.visible = false;
+        //Funcionamiento de poner las cosas invisible
+        //this.invisible.visible = false;
 
         this.game.physics.arcade.enable(this.player);
 
@@ -168,6 +200,7 @@ Game.Level1.prototype = {
         this.player.body.collideWorldBounds = true;
         this.player.checkWorldBounds = true;
         this.player.events.onOutOfBounds.add(this.death, this);
+
 
         // Areglo para manejar las teclas para juegar
         cursors = {
@@ -229,7 +262,7 @@ Game.Level1.prototype = {
     },
 */
 
-
+/*
     createEnemy: function() {
         //create items
          for(i = 0; i < 2; i++)
@@ -258,7 +291,7 @@ Game.Level1.prototype = {
 
 
          }
-    },
+    }, */
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
     findObjectsByType: function(type, map, layer) {
@@ -292,14 +325,12 @@ Game.Level1.prototype = {
         scoreText.y = this.game.camera.y;
 
         this.physics.arcade.collide(this.player,this.plataforma);
+        //this.physics.arcade.collide(this.player,this.invisible);
         //Borrar
         //this.enemigo.body.velocity.x = this.enemySpeed;
 
-        this.game.physics.arcade.collide(this.enemigo, this.plataforma);
-
-       this.physics.arcade.collide(this.player,this.puerta); //colision con puerta
-       this.physics.arcade.collide(this.player,this.puerta2);
-        //this.physics.arcade.collide(stars,plataforma);
+       //this.physics.arcade.collide(this.player,this.puerta); //colision con puerta
+       //this.physics.arcade.collide(this.player,this.puerta2);
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
@@ -311,8 +342,7 @@ Game.Level1.prototype = {
         this.player.body.velocity.x = 0;
 
         // handling collision between the enemy and the tiles
-        this.game.physics.arcade.collide(this.enemigo, this.plataforma, function(enemigo, plataforma){
-
+        this.game.physics.arcade.collide(this.enemigo, this.invisible, function(enemigo, plataforma){
 
             // enemy touching a wall on the right
             if(this.enemigo.body.blocked.right){
@@ -321,23 +351,10 @@ Game.Level1.prototype = {
                 this.enemigo.scale.x = -1;
             }
 
-            if(this.enemigo.body.blocked.down){
-
-                // horizontal flipping enemy sprite
-                this.enemigo.scale.x = -1;
-            }
             // same concept applies to the left
             if(this.enemigo.body.blocked.left){
                 this.enemigo.scale.x = 1;
             }
-            /*
-            // check against walls and reverse direction if necessary
-            if (this.enemigo.body.touching.right || this.enemigo.body.blocked.right) {
-                this.enemigo.body.velocity.x = -enemySpeed; // turn left
-            }
-            else if (this.enemigo.body.touching.left || this.enemigo.body.blocked.left) {
-                this.enemigo.body.velocity.x = enemySpeed; // turn right
-            }*/
 
             // adjusting enemy speed according to the direction it's moving
             this.enemigo.body.velocity.x = enemySpeed * this.enemigo.scale.x;

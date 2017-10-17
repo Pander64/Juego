@@ -48,12 +48,18 @@ Game.Preloader.prototype = {
         this.load.image('puerta', 'assets/imagenes/World/6.png');
         this.load.image('cueva', 'assets/imagenes/World/7.gif');   //Animación con gif
         //Objetos con tiled
-        this.load.image('carrot', 'assets/imagenes/World/8.png');
-
+        this.load.image('carrot', 'assets/imagenes/World/8.png'); //Xanahoria
         this.load.image('check', 'assets/imagenes/World/check.png');
         this.load.image('pipe', 'assets/imagenes/World/10.png');
         this.load.image('lava', 'assets/imagenes/World/11.png');
         this.load.image('browndoor', 'assets/imagenes/World/browndoor.png');
+
+        //Dialogo
+        this.load.image('dialogo1', 'assets/imagenes/Dialogo/dialogo-01.png');//Dialogo1
+        //Personas
+        this.load.image('persona1', 'assets/imagenes/Pueblo/1.gif');//Viejo
+        //Cerrar
+        this.load.image('cerrar1', 'assets/imagenes/World/x.png');
 
 
 
@@ -76,7 +82,7 @@ Game.Preloader.prototype = {
 
         setTimeout(function () {
             //Se inicia el tercer estado del juego
-            game.state.start('MainMenu');
+            game.state.start('Level1');
         }, 1000);
 
 
