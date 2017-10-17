@@ -64,8 +64,19 @@ Game.Preloader.prototype = {
 
         //Dialogo
         this.load.image('dialogo1', 'assets/imagenes/Dialogo/dialogo-01.png');//Dialogo1
+        this.load.image('dialogo2', 'assets/imagenes/Dialogo/dialogo-02.png');//Dialogo1
+        this.load.image('dialogo3', 'assets/imagenes/Dialogo/dialogo-03.png');//Dialogo1
+        this.load.image('dialogo4', 'assets/imagenes/Dialogo/dialogo-04.png');//Dialogo1
+        this.load.image('dialogo5', 'assets/imagenes/Dialogo/dialogo-05.png');//Dialogo1
+        this.load.image('dialogo6', 'assets/imagenes/Dialogo/dialogo-06.png');//Dialogo1
+        this.load.image('dialogo7', 'assets/imagenes/Dialogo/dialogo-07.png');//R1
+        this.load.image('dialogo8', 'assets/imagenes/Dialogo/dialogo-08.png');//R2
+        this.load.image('dialogo9', 'assets/imagenes/Dialogo/dialogo-09.png');//R3
         //Personas
         this.load.image('persona1', 'assets/imagenes/Pueblo/1.gif');//Viejo
+        this.load.image('persona2', 'assets/imagenes/Pueblo/2.gif');//Viejo
+        this.load.image('persona3', 'assets/imagenes/Pueblo/3.gif');//Viejo
+        this.load.image('persona4', 'assets/imagenes/Pueblo/4.gif');//Viejo
         //Cerrar
         this.load.image('cerrar1', 'assets/imagenes/World/x.png');
 

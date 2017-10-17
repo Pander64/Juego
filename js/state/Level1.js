@@ -53,11 +53,17 @@ var cursors = {};//Variable para el control de nuestro personaje
 var scoreText;
 var score = 0;
 
+var scoreTextR;
+var scoreR = 0;
+
 var enemySpeed = 70;
 var playerJump = 400;
 
 
+var x;
 
+var FotoDialogo =['dialogo1', 'dialogo7','dialogo8','dialogo9','dialogo2','dialogo3','dialogo4','dialogo5','dialogo6'];
+var FotoPersona =['persona1', 'persona2','persona3','persona4'];
 
 Game.Level1.prototype = {
 
@@ -157,28 +163,48 @@ Game.Level1.prototype = {
 
 
         //Crear la persona en el mapa
+        /*for (var i = 0; i < 2; i++){
+            var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
+            //eval(" var persona" + i);
+            // noinspection JSAnnotator
+            eval("var persona" + i = this.game.add.sprite(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]));
+        }*/
         var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-
-        this.persona = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, 'persona1');
-
-        this.persona.scale.setTo(-1, 1);
+        //eval(" var persona" + i);
+        // noinspection JSAnnotator
+        var i = "1";
+        eval("var persona" + i);
+        persona1 = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, "persona1");
+        //this.persona.input.up = true;
+        //this.persona.scale.setTo(-1, 1);
+        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
 
         //Crear el dialogo en el mapa
-        var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
 
-        this.dialogo = this.game.add.sprite(resultadoD[0].x, resultadoD[0].y, 'dialogo1');
+        for (var i = 0; i < 9; i++){
+            var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
 
-        this.dialogo.anchor.setTo(0.5, 0.5);
+            this.dialogo = this.game.add.sprite(resultadoD[i].x, resultadoD[i].y, FotoDialogo[i]);
+            this.dialogo.anchor.setTo(0.5, 0.5);
+
+        }
+
+
+       // this.dialogo.anchor.setTo(0.5, 0.5);
 
         //Cerrar
         var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
+        for (var i = 0; i < 6; i++){
+            this.cerrar = this.game.add.button(resultadoC[i].x, resultadoC[i].y, 'cerrar1');
+            this.cerrar.input.up = true;
+            this.cerrar.anchor.setTo(0.5, 0.5);
+            this.cerrar.events.onInputDown.add(this.CerrarDialogo,this.cerrar);
+        }
 
-        this.cerrar = this.game.add.sprite(resultadoC[0].x, resultadoC[0].y, 'cerrar1');
 
-        this.cerrar.anchor.setTo(0.5, 0.5);
-
-
-
+        //if (x == 0){this.dialogo.visible = false;}else{this.dialogo.visible = true;}
+        //if (this.x == 1){this.dialogo.visible = false;}
 
 
         //Crear al player
@@ -213,6 +239,7 @@ Game.Level1.prototype = {
         this.player.checkWorldBounds = true;
         this.player.events.onOutOfBounds.add(this.death, this);
 
+        //this.player.visible = false;
 
         // Areglo para manejar las teclas para juegar
         cursors = {
@@ -226,7 +253,22 @@ Game.Level1.prototype = {
         //this.fixedToCamera = true;
 
         scoreText = this.game.add.text(this.camera.x, this.camera.y, 'score: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
+        scoreTextR = this.game.add.text(this.camera.x * -1, this.camera.y, 'scoreR: 0', { fontSize: '32px', fill: '#b60023', align: "left"});
 
+    },
+
+    CrearDialogo: function () {
+        x = 1;
+        console.log(x);
+        //this.dialogo.visible = true;
+
+    },
+
+    CerrarDialogo: function () {
+        x = 0;
+        console.log(x);
+        //this.dialogo.visible = true;
+        //return false;
     },
 
     createDoors: function() {
@@ -261,6 +303,8 @@ Game.Level1.prototype = {
             this.createFromTiledObject(element, this.rec);
         }, this);
     },
+
+
 /*
     createE: function() {
         //create items
@@ -274,36 +318,6 @@ Game.Level1.prototype = {
     },
 */
 
-/*
-    createEnemy: function() {
-        //create items
-         for(i = 0; i < 2; i++)
-         {
-
-             var enemy = ["enemy", "enemy1"];
-             var name = this.findObjectsByType(enemy[i], this.map, 'ObjectLayer1');
-
-             this.enemigo = this.game.add.sprite(name[0].x, name[0].y, 'enemigo');
-
-             this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
-             this.enemigo.animations.play("flying");
-
-             // setting enemy anchor point
-             this.enemigo.anchor.set(0.5);
-
-             // enabling ARCADE physics for the enemy
-             this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
-             //Gravedad del enemigo
-             this.enemigo.body.gravity.y = 9;
-
-             this.enemigo.body.velocity.x = enemySpeed;
-
-             this.enemigo.body.collideWorldBounds = true;
-             this.enemigo.checkWorldBounds = true;
-
-
-         }
-    }, */
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
     findObjectsByType: function(type, map, layer) {
@@ -335,6 +349,8 @@ Game.Level1.prototype = {
 
         scoreText.x = this.game.camera.x;
         scoreText.y = this.game.camera.y;
+        scoreTextR.x = this.game.camera.x * -1;
+        scoreTextR.y = this.game.camera.y;
 
         this.physics.arcade.collide(this.player,this.plataforma);
         //this.physics.arcade.collide(this.player,this.invisible);
@@ -346,6 +362,8 @@ Game.Level1.prototype = {
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
+
+        this.game.physics.arcade.overlap(this.player, this.rec, this.collectR, null, this);
 
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
@@ -511,6 +529,15 @@ Game.Level1.prototype = {
         score += 50;
         scoreText.text = 'Score: ' + score;
        carrot.play();
+        //remove sprite
+        collectable.destroy();
+    },
+
+    collectR: function(player, collectable) {
+        console.log('yummy!');
+        scoreR += 50;
+        scoreTextR.text = 'Score: ' + score;
+        carrot.play();
         //remove sprite
         collectable.destroy();
     },
