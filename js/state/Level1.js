@@ -65,8 +65,8 @@ var playerJump = 400;
 
 var x;
 
-var FotoDialogo =['dialogo1', 'dialogo7','dialogo8','dialogo9','dialogo2','dialogo3','dialogo4','dialogo5','dialogo6'];
-var FotoPersona =['persona1', 'persona2','persona3','persona4'];
+var FotoDialogo =['dialogo1','dialogo2','dialogo3','dialogo4'];
+var FotoPersona =['persona1', 'persona2','persona3','persona4','persona1'];
 
 Game.Level1.prototype = {
 
@@ -168,26 +168,28 @@ Game.Level1.prototype = {
 
 
         //Crear la persona en el mapa
-        /*for (var i = 0; i < 2; i++){
+        for (var i = 0; i < 5; i++){
             var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-            //eval(" var persona" + i);
-            // noinspection JSAnnotator
-            eval("var persona" + i = this.game.add.sprite(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]));
-        }*/
-        var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
+            
+            this.persona = this.game.add.button(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]);
+
+            this.persona.input.up = true;
+            this.persona.scale.setTo(-1, 1);
+            this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+        }
+        //var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
         //eval(" var persona" + i);
         // noinspection JSAnnotator
-        var i = "1";
+       /* var i = "1";
         eval("var persona" + i);
         persona1 = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, "persona1");
-        //this.persona.input.up = true;
-        //this.persona.scale.setTo(-1, 1);
-        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+        */
+        
         //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
 
         //Crear el dialogo en el mapa
 
-        for (var i = 0; i < 9; i++){
+        for (var i = 0; i < 4; i++){
             var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
 
             this.dialogo = this.game.add.sprite(resultadoD[i].x, resultadoD[i].y, FotoDialogo[i]);
@@ -199,13 +201,13 @@ Game.Level1.prototype = {
        // this.dialogo.anchor.setTo(0.5, 0.5);
 
         //Cerrar
-        var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
+        /*var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
         for (var i = 0; i < 6; i++){
             this.cerrar = this.game.add.button(resultadoC[i].x, resultadoC[i].y, 'cerrar1');
             this.cerrar.input.up = true;
             this.cerrar.anchor.setTo(0.5, 0.5);
             this.cerrar.events.onInputDown.add(this.CerrarDialogo,this.cerrar);
-        }
+        }*/
 
 
         //if (x == 0){this.dialogo.visible = false;}else{this.dialogo.visible = true;}
@@ -378,14 +380,12 @@ Game.Level1.prototype = {
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 
-        this.game.physics.arcade.overlap(this.player, this.rec, this.collectR, null, this);
-
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
         if(m == 3){
         this.rec.visible = true;
         this.game.physics.arcade.overlap(this.player, this.rec, this.collect2, null, this);
-      }
+        }
 
         this.player.body.velocity.x = 0;
 
@@ -487,7 +487,7 @@ Game.Level1.prototype = {
 
         if (cursors.up.isDown && this.player.body.onFloor())
         {
-          salto.play();
+            salto.play();
             this.ChangePlayer();
             this.player.body.velocity.y = -350;
         }
@@ -499,7 +499,7 @@ Game.Level1.prototype = {
 
             this.player.animations.play();
             this.player.scale.setTo(-1, 1);
-         o= o +1;
+         o = o +1;
         }
 
         if (cursors.spacebar.isDown && cursors.left.isDown)
@@ -509,7 +509,7 @@ Game.Level1.prototype = {
 
             this.player.animations.play();
             this.player.scale.setTo(1, 1);
-         o= o +1;
+         o = o +1;
         }
 
 
@@ -521,14 +521,6 @@ Game.Level1.prototype = {
         this.killplayer();
         this.game.state.start("Level1");
     },
-
-/*
-    moveEnemy:function (enemigo,plataforma){
-    if(enemigo.enemySpeed>0 && enemigo.x>plataforma.x+plataforma.width/2 || enemigo.enemySpeed<0 && enemigo.x<plataforma.x-plataforma.width/2){
-        enemigo.enemySpeed*=-70;
-    }
-    },
-    */
 
     playerAttack: function () {
         //Change image and update the body size for the physics engine
@@ -554,15 +546,6 @@ Game.Level1.prototype = {
     collect2: function(player, collectable) {
         r = r + 1;
         reci.play();
-        collectable.destroy();
-    },
-
-    collectR: function(player, collectable) {
-        console.log('yummy!');
-        scoreR += 50;
-        scoreTextR.text = 'Score: ' + score;
-        carrot.play();
-        //remove sprite
         collectable.destroy();
     },
 
