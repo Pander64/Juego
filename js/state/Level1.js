@@ -56,8 +56,6 @@ var cursors = {};//Variable para el control de nuestro personaje
 var scoreText;
 var score;
 
-var scoreTextR;
-var scoreR = 0;
 
 var enemySpeed = 70;
 var playerJump = 400;
@@ -189,6 +187,7 @@ Game.Level1.prototype = {
 
         //Crear el dialogo en el mapa
 
+<<<<<<< HEAD
         for (var i = 0; i < 4; i++){
             var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
 
@@ -196,10 +195,13 @@ Game.Level1.prototype = {
             this.dialogo.anchor.setTo(0.5, 0.5);
 
         }
+=======
+>>>>>>> AlexFinal
 
 
        // this.dialogo.anchor.setTo(0.5, 0.5);
 
+<<<<<<< HEAD
         //Cerrar
         /*var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
         for (var i = 0; i < 6; i++){
@@ -209,6 +211,8 @@ Game.Level1.prototype = {
             this.cerrar.events.onInputDown.add(this.CerrarDialogo,this.cerrar);
         }*/
 
+=======
+>>>>>>> AlexFinal
 
         //if (x == 0){this.dialogo.visible = false;}else{this.dialogo.visible = true;}
         //if (this.x == 1){this.dialogo.visible = false;}
@@ -259,8 +263,7 @@ Game.Level1.prototype = {
 
         //this.fixedToCamera = true;
 
-        scoreText = this.game.add.text(this.camera.x, this.camera.y, 'score: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
-        scoreTextR = this.game.add.text(this.camera.x * -1, this.camera.y, 'scoreR: 0', { fontSize: '32px', fill: '#b60023', align: "left"});
+        scoreText = this.game.add.text(this.camera.x, this.camera.y, 'Zanahorias: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
 
     },
 
@@ -357,8 +360,6 @@ Game.Level1.prototype = {
 
         scoreText.x = this.game.camera.x;
         scoreText.y = this.game.camera.y;
-        scoreTextR.x = this.game.camera.x * -1;
-        scoreTextR.y = this.game.camera.y;
 
         this.physics.arcade.collide(this.player,this.plataforma);
         //this.physics.arcade.collide(this.player,this.invisible);
@@ -367,6 +368,7 @@ Game.Level1.prototype = {
         if(r == 1){
           this.puerta.kill();
           this.puerta.visible = false;
+          this.physics.arcade.collide(this.player,this.puerta2);
         }
         else if(r == 2){
           this.puerta2.kill();
@@ -374,7 +376,6 @@ Game.Level1.prototype = {
         }
         else{
           this.physics.arcade.collide(this.player,this.puerta);
-          this.physics.arcade.collide(this.player,this.puerta2);
         }
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
@@ -382,10 +383,14 @@ Game.Level1.prototype = {
 
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
-        if(m == 3){
+      //  if(m == 3){
         this.rec.visible = true;
         this.game.physics.arcade.overlap(this.player, this.rec, this.collect2, null, this);
+<<<<<<< HEAD
         }
+=======
+    //  }
+>>>>>>> AlexFinal
 
         this.player.body.velocity.x = 0;
 
@@ -537,8 +542,8 @@ Game.Level1.prototype = {
 
     collect: function(player, collectable) {
         console.log('yummy!');
-        score += 50;
-        scoreText.text = 'Score: ' + score;
+        score += 1;
+        scoreText.text = 'Zanahorias: ' + score;
        carrot.play();
         //remove sprite
         collectable.destroy();
@@ -546,9 +551,22 @@ Game.Level1.prototype = {
     collect2: function(player, collectable) {
         r = r + 1;
         reci.play();
+        if(r==1){
+          alert("Haz conseguido la 1era R! RECICLA: “Reciclar es más que una acción, es el valor de la responsabilidad por preservar los recursos naturales");
+        }
+        else if(r==2){
+          alert("Haz conseguido la 2da R! REUTILIZA: “Las aguas procedentes de los desagües de lavadoras, bañeras o fregaderos, serían, tras la aplicación de un simple tratamiento, perfectas para el riego de zonas verdes o el uso en cisternas, así como para limpieza de exteriores.");
+        }
+        else{
+          alert("Haz conseguido la 3era R! REDUCE: “Sustituye las bolsas de plástico de la compra por bolsas de materiales reutilizables”");
+        }
         collectable.destroy();
     },
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> AlexFinal
     enterDoor: function(player, door) {
         game.state.start("final");
     },

@@ -132,48 +132,6 @@
                  "y":1483
                 }, 
                 {
-                 "height":24,
-                 "id":85,
-                 "name":"cerrar5",
-                 "properties":
-                    {
-                     "sprite":"cerrar1",
-                     "type":"cerrar"
-                    },
-                 "propertytypes":
-                    {
-                     "sprite":"string",
-                     "type":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":4434,
-                 "y":29.3333333333333
-                }, 
-                {
-                 "height":24,
-                 "id":86,
-                 "name":"cerrar6",
-                 "properties":
-                    {
-                     "sprite":"cerrar1",
-                     "type":"cerrar"
-                    },
-                 "propertytypes":
-                    {
-                     "sprite":"string",
-                     "type":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":4626.66666666667,
-                 "y":34.6666666666667
-                }, 
-                {
                  "height":12,
                  "id":87,
                  "name":"info1",
@@ -310,8 +268,13 @@
                  "type":"",
                  "visible":true,
                  "width":41.939393939394,
+<<<<<<< HEAD
                  "x":4540.84848484848,
                  "y":158.606060606061
+=======
+                 "x":80.85,
+                 "y":288.61
+>>>>>>> AlexFinal
                 }, 
                 {
                  "height":57.3333333333333,
@@ -392,8 +355,13 @@
                  "type":"",
                  "visible":true,
                  "width":84.848484848485,
+<<<<<<< HEAD
                  "x":4781.39393939394,
                  "y":60.4848484848485
+=======
+                 "x":4740.39393939394,
+                 "y":48.4848484848485
+>>>>>>> AlexFinal
                 }, 
                 {
                  "height":33.3333333333334,
@@ -1184,6 +1152,7 @@
                 }, 
                 {
                  "height":103.030303030303,
+<<<<<<< HEAD
                  "id":79,
                  "name":"popup4",
                  "properties":
@@ -1207,6 +1176,10 @@
                  "height":57.3333333333333,
                  "id":91,
                  "name":"score",
+=======
+                 "id":77,
+                 "name":"popup2",
+>>>>>>> AlexFinal
                  "properties":
                     {
                      "type":"scoreR"
@@ -1269,6 +1242,7 @@
                  "y":370.666666666667
                 }, 
                 {
+<<<<<<< HEAD
                  "height":33.3333333333334,
                  "id":94,
                  "name":"carrot0",
@@ -1282,11 +1256,23 @@
                     {
                      "score":"string",
                      "sprite":"string",
+=======
+                 "height":57.3333333333333,
+                 "id":91,
+                 "name":"score",
+                 "properties":
+                    {
+                     "type":"scoreR"
+                    },
+                 "propertytypes":
+                    {
+>>>>>>> AlexFinal
                      "type":"string"
                     },
                  "rotation":0,
                  "type":"",
                  "visible":true,
+<<<<<<< HEAD
                  "width":42.6666666666667,
                  "x":870,
                  "y":458.666666666667
@@ -1313,6 +1299,11 @@
                  "width":42.6666666666667,
                  "x":916,
                  "y":546.666666666667
+=======
+                 "width":164,
+                 "x":478.909090909091,
+                 "y":51.6363636363637
+>>>>>>> AlexFinal
                 }],
          "opacity":1,
          "type":"objectgroup",
