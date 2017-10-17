@@ -350,6 +350,10 @@ Game.Level1.prototype = {
           this.puerta.kill();
           this.puerta.visible = false;
         }
+        else if(r == 2){
+          this.puerta2.kill();
+          this.puerta2.visible = false;
+        }
         else{
           this.physics.arcade.collide(this.player,this.puerta);
           this.physics.arcade.collide(this.player,this.puerta2);
