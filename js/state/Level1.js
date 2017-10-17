@@ -348,7 +348,8 @@ Game.Level1.prototype = {
         //this.enemigo.body.velocity.x = this.enemySpeed;
         if(r == 1){
           this.puerta.kill();
-          this.puerta.visible = false;
+          this.puerta.visible = false;          
+          this.physics.arcade.collide(this.player,this.puerta2);
         }
         else if(r == 2){
           this.puerta2.kill();
@@ -356,7 +357,6 @@ Game.Level1.prototype = {
         }
         else{
           this.physics.arcade.collide(this.player,this.puerta);
-          this.physics.arcade.collide(this.player,this.puerta2);
         }
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
