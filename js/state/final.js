@@ -22,14 +22,12 @@ Game.final.prototype = {
     },
 
     create: function (game) {
-        /*
-        if (music.name !== "dangerous" && playMusic) {
-            music.stop();
-            music = game.add.audio('dangerous');
-            music.loop = true;
-            music.play();
-        }
-        */
+
+              game.sound.stopAll();
+                    music = game.add.audio('credits');
+                    music.stop();
+                    music.loop = true;
+                    music.play();
         this.stage.disableVisibilityChange = true;
         this.add.sprite(0, 0, 'final');
         this.add.existing(this.titleText);

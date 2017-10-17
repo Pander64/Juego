@@ -23,14 +23,7 @@ Game.creditos.prototype = {
     },
 
     create: function (game) {
-        /*
-        if (music.name !== "dangerous" && playMusic) {
-            music.stop();
-            music = game.add.audio('dangerous');
-            music.loop = true;
-            music.play();
-        }
-        */
+
         this.stage.disableVisibilityChange = true;
         this.add.sprite(0, 0, 'creditos');
         this.add.existing(this.titleText);

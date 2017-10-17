@@ -22,14 +22,12 @@ Game.MainMenu.prototype = {
     },
 
     create: function (game) {
-        /*
-        if (music.name !== "dangerous" && playMusic) {
+      game.sound.stopAll();
+            music = game.add.audio('menu');
             music.stop();
-            music = game.add.audio('dangerous');
             music.loop = true;
             music.play();
-        }
-        */
+
         this.stage.disableVisibilityChange = true;
         this.add.sprite(0, 0, 'menu');
         this.add.existing(this.titleText);
