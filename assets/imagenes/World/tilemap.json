@@ -24,6 +24,58 @@
         }, 
         {
          "draworder":"topdown",
+         "name":"ObjectLayer2",
+         "objects":[
+                {
+                 "height":12,
+                 "id":70,
+                 "name":"info0",
+                 "properties":
+                    {
+                     "sprite":"persona1",
+                     "type":"persona"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":40.6666666666666,
+                 "x":534,
+                 "y":355.333333333333
+                }, 
+                {
+                 "height":24,
+                 "id":73,
+                 "name":"cerrar",
+                 "properties":
+                    {
+                     "sprite":"cerrar1",
+                     "type":"cerrar"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":494,
+                 "y":184
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "name":"ObjectLayer1",
          "objects":[
                 {
@@ -477,7 +529,7 @@
                  "y":69.6969696969697
                 }, 
                 {
-                 "height":26.6666666666667,
+                 "height":4.66666666666669,
                  "id":7,
                  "name":"enemigo0",
                  "properties":
@@ -494,8 +546,8 @@
                  "type":"",
                  "visible":true,
                  "width":57.3333333333333,
-                 "x":378.30303030303,
-                 "y":336.242424242424
+                 "x":379.636363636363,
+                 "y":372.909090909091
                 }, 
                 {
                  "height":50.55,
@@ -877,6 +929,27 @@
                  "width":93.3333333333335,
                  "x":4986.66666666667,
                  "y":467.757575757576
+                }, 
+                {
+                 "height":103.030303030303,
+                 "id":65,
+                 "name":"popup",
+                 "properties":
+                    {
+                     "sprite":"dialogo1",
+                     "type":"dialogo"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":172.727272727273,
+                 "x":341.969696969697,
+                 "y":261.757575757576
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -939,7 +1012,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":64,
+ "nextobjectid":74,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2017.07.26",
