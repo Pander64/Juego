@@ -38,6 +38,9 @@ var cueva;//Para la zona de ciudad y cueva
 var pipe;//Para la  tuberia
 var lava;//Para  lava
 var o = 0;
+var i;
+var m;
+var r;
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
@@ -51,7 +54,7 @@ var cursors = {};//Variable para el control de nuestro personaje
 
 //Mas variables
 var scoreText;
-var score = 0;
+var score;
 
 var enemySpeed = 70;
 var playerJump = 400;
@@ -63,13 +66,16 @@ Game.Level1.prototype = {
 
     create:function () {
         //Fondo
+        score=0;
+        m=0;
+        r=0;
         game.sound.stopAll();
         music = game.add.audio('game');
         salto = game.add.audio('salto');
         golpe1 = game.add.audio('golpe1');
         golpe2 = game.add.audio('golpe2');
         carrot = game.add.audio('carrot');
-        r = game.add.audio('r');
+        reci = game.add.audio('r');
         death = game.add.audio('death');
         robotdeath = game.add.audio('robotdeath');
         music.stop();
@@ -106,20 +112,19 @@ Game.Level1.prototype = {
         this.vertical = this.map.createLayer('Fondo');
         this.agua = this.map.createLayer('Detalles');
         this.plataforma = this.map.createLayer('Plataforma');
-        this.boton = this.map.createLayer('Puerta');
         this.puente = this.map.createLayer('Puente');
         this.puerta = this.map.createLayer('Puerta');
         this.puerta2 = this.map.createLayer('Puerta2');
         this.invisible = this.map.createLayer('Invisible');
 
-
+        this.invisible.visible = false;
         //Hacer que haya colision entre el campo menos y mayor de la llave "data" del json
 
 
         this.map.setCollisionBetween(1,1000,true,this.plataforma);
         this.map.setCollisionBetween(1,1000,true,this.invisible);
-      /*  this.map.setCollisionBetween(1,1000,true,this.puerta);
-        this.map.setCollisionBetween(1,1000,true,this.puerta2); */
+       this.map.setCollisionBetween(1,1000,true,this.puerta);
+        this.map.setCollisionBetween(1,1000,true,this.puerta2);
 
         //  This resizes the game world to match the layer dimensions
         this.plataforma.resizeWorld();
@@ -130,30 +135,30 @@ Game.Level1.prototype = {
         this.createDoors();
         this.createR();
         //this.createE();
-
         //this.createEnemy();
-        var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1')
+        this.enemigo = game.add.group();
+        var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
+        for (i=0;i<13;i++){
+          var enemigos = this.enemigo.create(result1[i].x, result1[i].y, 'enemigo');
+            enemigos.animations.add('flying', [0, 1, 2, 3, 4, 5], 7, true);
+            enemigos.animations.play('flying');
 
-        this.enemigo = this.game.add.sprite(result1[0].x, result1[0].y, 'enemigo');
+            // setting enemy anchor point
+            enemigos.anchor.set(0.5);
+
+            // enabling ARCADE physics for the enemy
+            this.game.physics.enable(enemigos, Phaser.Physics.ARCADE);
+
+            // setting enemy horizontal speed
+            enemigos.body.velocity.x = enemySpeed;
+
+            enemigos.body.collideWorldBounds = true;
+            enemigos.checkWorldBounds = true;
+        }
 
         //this.enemigo = this.game.add.group();
 
         //this.enemy = this.enemigo.create(result1[0].x, result1[0].y, 'enemigo')
-
-        this.enemigo.animations.add("flying", [0, 1, 2, 3, 4, 5], 7, true);
-        this.enemigo.animations.play("flying");
-
-        // setting enemy anchor point
-        this.enemigo.anchor.set(0.5);
-
-        // enabling ARCADE physics for the enemy
-        this.game.physics.enable(this.enemigo, Phaser.Physics.ARCADE);
-
-        // setting enemy horizontal speed
-        this.enemigo.body.velocity.x = enemySpeed;
-
-        this.enemigo.body.collideWorldBounds = true;
-        this.enemigo.checkWorldBounds = true;
 
 
         //Crear la persona en el mapa
@@ -259,6 +264,7 @@ Game.Level1.prototype = {
         result = this.findObjectsByType('premio', this.map, 'ObjectLayer1');
         result.forEach(function(element){
             this.createFromTiledObject(element, this.rec);
+            this.rec.visible = false;
         }, this);
     },
 /*
@@ -340,16 +346,24 @@ Game.Level1.prototype = {
         //this.physics.arcade.collide(this.player,this.invisible);
         //Borrar
         //this.enemigo.body.velocity.x = this.enemySpeed;
-
-       //this.physics.arcade.collide(this.player,this.puerta); //colision con puerta
-       //this.physics.arcade.collide(this.player,this.puerta2);
+        if(r == 1){
+          this.puerta.kill();
+          this.puerta.visible = false;
+        }
+        else{
+          this.physics.arcade.collide(this.player,this.puerta);
+          this.physics.arcade.collide(this.player,this.puerta2);
+        }
 
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
-
+        if(m == 3){
+        this.rec.visible = true;
+        this.game.physics.arcade.overlap(this.player, this.rec, this.collect2, null, this);
+      }
 
         this.player.body.velocity.x = 0;
 
@@ -357,36 +371,37 @@ Game.Level1.prototype = {
         this.game.physics.arcade.collide(this.enemigo, this.invisible, function(enemigo, plataforma){
 
             // enemy touching a wall on the right
-            if(this.enemigo.body.blocked.right){
+            if(enemigo.body.blocked.right){
 
                 // horizontal flipping enemy sprite
-                this.enemigo.scale.x = -1;
+              enemigo.scale.x = -1;
             }
 
             // same concept applies to the left
-            if(this.enemigo.body.blocked.left){
-                this.enemigo.scale.x = 1;
+            if(enemigo.body.blocked.left){
+                enemigo.scale.x = 1;
             }
 
             // adjusting enemy speed according to the direction it's moving
-            this.enemigo.body.velocity.x = enemySpeed * this.enemigo.scale.x;
+            enemigo.body.velocity.x = enemySpeed * enemigo.scale.x;
         }, null, this);
 
         if(o == 0){
 
         // handling collision between enemy and hero
-        this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigo){
+        this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigos){
 
             // hero is stomping the enemy if:
             // hero is touching DOWN
             // enemy is touching UP
 
-            if(this.enemigo.body.touching.up && this.player.body.touching.down){
+            if(enemigos.body.touching.up && this.player.body.touching.down){
 
                 // in this case just jump again
                 this.player.body.velocity.y =  -playerJump;
                 robotdeath.play();
-                this.deathEnemigo();
+                enemigos.kill();
+                m = m +1;
             }
             else{
 
@@ -397,13 +412,14 @@ Game.Level1.prototype = {
           }, null, this);
           }
           else{
-            this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigo){
+            this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigos){
 
-                if(this.enemigo.body.touching.right || this.enemigo.body.touching.left && this.player.body.touching.right || this.player.body.touching.left){
+                if(enemigos.body.touching.right || enemigos.body.touching.left && this.player.body.touching.right || this.player.body.touching.left){
 
                     // in this case just jump again
                     robotdeath.play();
-                    this.deathEnemigo();
+                    enemigos.kill();
+                    m = m +1;
                 }
                 else{
 
@@ -480,13 +496,10 @@ Game.Level1.prototype = {
 
     death:function(){
         death.play();
+        this.killplayer();
         this.game.state.start("Level1");
     },
 
-    deathEnemigo:function(){
-        this.enemigo.kill();
-        console.log('yummy!');
-    },
 /*
     moveEnemy:function (enemigo,plataforma){
     if(enemigo.enemySpeed>0 && enemigo.x>plataforma.x+plataforma.width/2 || enemigo.enemySpeed<0 && enemigo.x<plataforma.x-plataforma.width/2){
@@ -504,6 +517,8 @@ Game.Level1.prototype = {
 
     ChangePlayer: function () {
         this.player.loadTexture("player");
+        this.player.animations.add('left', [0, 1, 2, 3], 10, true);
+        this.player.animations.add('right', [5, 6, 7, 8], 10, true);
     },
 
     collect: function(player, collectable) {
@@ -512,6 +527,11 @@ Game.Level1.prototype = {
         scoreText.text = 'Score: ' + score;
        carrot.play();
         //remove sprite
+        collectable.destroy();
+    },
+    collect2: function(player, collectable) {
+        r = r + 1;
+        reci.play();
         collectable.destroy();
     },
 
