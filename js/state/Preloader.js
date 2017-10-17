@@ -31,8 +31,8 @@ Game.Preloader.prototype = {
         this.game.load.audio('carrot', ['assets/musica/carrot.wav']);
         this.game.load.audio('r', ['assets/musica/r.wav']);
         this.game.load.audio('death', ['assets/musica/death.wav']);
-
-
+        this.game.load.audio('robotdeath', ['assets/musica/robotdeath.wav']);
+        this.game.load.audio('credits', ['assets/musica/credits.mp3']);
         //Menu
         this.load.image('menu','assets/imagenes/Menu/menu.jpg');
         this.load.image('historia','assets/imagenes/Menu/historia.jpg');

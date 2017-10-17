@@ -37,7 +37,7 @@ var puerta2; //Para la capa de fuego 2
 var cueva;//Para la zona de ciudad y cueva
 var pipe;//Para la  tuberia
 var lava;//Para  lava
-
+var o = 0;
 
 //Variables para el juego
 var player; //Variable de nuestro juegador
@@ -70,6 +70,7 @@ Game.Level1.prototype = {
         carrot = game.add.audio('carrot');
         r = game.add.audio('r');
         death = game.add.audio('death');
+        robotdeath = game.add.audio('robotdeath');
         music.stop();
         music.loop = true;
         music.play();
@@ -354,6 +355,7 @@ Game.Level1.prototype = {
             this.enemigo.body.velocity.x = enemySpeed * this.enemigo.scale.x;
         }, null, this);
 
+        if(o == 0){
 
         // handling collision between enemy and hero
         this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigo){
@@ -361,10 +363,12 @@ Game.Level1.prototype = {
             // hero is stomping the enemy if:
             // hero is touching DOWN
             // enemy is touching UP
+
             if(this.enemigo.body.touching.up && this.player.body.touching.down){
 
                 // in this case just jump again
                 this.player.body.velocity.y =  -playerJump;
+                robotdeath.play();
                 this.deathEnemigo();
             }
             else{
@@ -373,7 +377,26 @@ Game.Level1.prototype = {
                 death.play();
                 this.game.state.start("Level1");
             }
-        }, null, this);
+          }, null, this);
+          }
+          else{
+            this.game.physics.arcade.collide(this.player, this.enemigo, function(player, enemigo){
+
+                if(this.enemigo.body.touching.right || this.enemigo.body.touching.left && this.player.body.touching.right || this.player.body.touching.left){
+
+                    // in this case just jump again
+                    robotdeath.play();
+                    this.deathEnemigo();
+                }
+                else{
+
+                    // any other way to collide on an enemy will restart the game
+                    death.play();
+                    this.game.state.start("Level1");
+                }
+              }, null, this);
+              }
+
 
         if (cursors.left.isDown)
         {
@@ -399,6 +422,7 @@ Game.Level1.prototype = {
 
         else
         {
+          o = o-o;
             this.ChangePlayer();
             //  Stand still
             this.player.animations.stop();
@@ -420,7 +444,7 @@ Game.Level1.prototype = {
 
             this.player.animations.play();
             this.player.scale.setTo(-1, 1);
-
+         o= o +1;
         }
 
         if (cursors.spacebar.isDown && cursors.left.isDown)
@@ -430,7 +454,7 @@ Game.Level1.prototype = {
 
             this.player.animations.play();
             this.player.scale.setTo(1, 1);
-
+         o= o +1;
         }
 
 
