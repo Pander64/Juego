@@ -142,7 +142,7 @@ Game.Level1.prototype = {
         //this.createEnemy();
         this.enemigo = game.add.group();
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
-        for (i=0;i<13;i++){
+        for (i=0;i<20;i++){
           var enemigos = this.enemigo.create(result1[i].x, result1[i].y, 'enemigo');
             enemigos.animations.add('flying', [0, 1, 2, 3, 4, 5], 7, true);
             enemigos.animations.play('flying');
@@ -165,23 +165,19 @@ Game.Level1.prototype = {
         //this.enemy = this.enemigo.create(result1[0].x, result1[0].y, 'enemigo')
 
 
-        for (var i = 0; i < 5; i++){
+        for (var i = 0; i < 4; i++){
             var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-            //eval(" var persona" + i);
-            // noinspection JSAnnotator
             this.persona = this.game.add.button(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]);
             this.persona.input.up = true;
             this.persona.scale.setTo(-1, 1);
             this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
         }
-      /*  var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-        //eval(" var persona" + i);
-        // noinspection JSAnnotator
-        var i = "1";
-        eval("var persona" + i);
-        persona1 = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, "persona1");
 
-\*/
+        this.personaFinal = this.game.add.button(resultadoP[4].x, resultadoP[4].y, FotoPersona[4]);
+        this.personaFinal.scale.setTo(-1, 1)
+        this.personaFinal.input.up = true;
+        this.personaFinal.events.onInputDown.add(this.viejoFinal,this.personaFinal);
+
 
         //Crear el dialogo en el mapa
 
@@ -362,6 +358,7 @@ Game.Level1.prototype = {
           this.physics.arcade.collide(this.player,this.puerta);
         }
 
+        this.physics.arcade.collide(this.player,this.personaFinal);
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 
@@ -369,7 +366,9 @@ Game.Level1.prototype = {
 
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
-        if(m == 3){
+        //this.game.physics.arcade.overlap(this.player, this.personaFinal, this.viejoFinal, null, this);
+
+        if(m >= 3){
         this.rec.visible = true;
         this.game.physics.arcade.overlap(this.player, this.rec, this.collect2, null, this);
       }
@@ -505,17 +504,10 @@ Game.Level1.prototype = {
 
     death:function(){
         death.play();
-        this.killplayer();
+        //this.killplayer();
+        alert("Intentalo de nuevo");
         this.game.state.start("Level1");
     },
-
-/*
-    moveEnemy:function (enemigo,plataforma){
-    if(enemigo.enemySpeed>0 && enemigo.x>plataforma.x+plataforma.width/2 || enemigo.enemySpeed<0 && enemigo.x<plataforma.x-plataforma.width/2){
-        enemigo.enemySpeed*=-70;
-    }
-    },
-    */
 
     playerAttack: function () {
         //Change image and update the body size for the physics engine
@@ -553,6 +545,9 @@ Game.Level1.prototype = {
         collectable.destroy();
     },
 
+    viejoFinal: function(player, personaFinal) {
+        alert("Gracias, por juegar, un juego creador por Alexander Barroso y Agustin Valedez");
+    },
 
     enterDoor: function(player, door) {
         game.state.start("final");
