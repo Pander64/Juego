@@ -56,8 +56,6 @@ var cursors = {};//Variable para el control de nuestro personaje
 var scoreText;
 var score;
 
-var scoreTextR;
-var scoreR = 0;
 
 var enemySpeed = 70;
 var playerJump = 400;
@@ -65,8 +63,8 @@ var playerJump = 400;
 
 var x;
 
-var FotoDialogo =['dialogo1', 'dialogo7','dialogo8','dialogo9','dialogo2','dialogo3','dialogo4','dialogo5','dialogo6'];
-var FotoPersona =['persona1', 'persona2','persona3','persona4'];
+var FotoDialogo =['dialogo1', 'dialogo2','dialogo3','dialogo4'];
+var FotoPersona =['persona1', 'persona2','persona3','persona4','persona1'];
 
 Game.Level1.prototype = {
 
@@ -144,7 +142,7 @@ Game.Level1.prototype = {
         //this.createEnemy();
         this.enemigo = game.add.group();
         var result1 = this.findObjectsByType('enemy', this.map, 'ObjectLayer1');
-        for (i=0;i<13;i++){
+        for (i=0;i<20;i++){
           var enemigos = this.enemigo.create(result1[i].x, result1[i].y, 'enemigo');
             enemigos.animations.add('flying', [0, 1, 2, 3, 4, 5], 7, true);
             enemigos.animations.play('flying');
@@ -167,27 +165,23 @@ Game.Level1.prototype = {
         //this.enemy = this.enemigo.create(result1[0].x, result1[0].y, 'enemigo')
 
 
-        //Crear la persona en el mapa
-        /*for (var i = 0; i < 2; i++){
+        for (var i = 0; i < 4; i++){
             var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-            //eval(" var persona" + i);
-            // noinspection JSAnnotator
-            eval("var persona" + i = this.game.add.sprite(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]));
-        }*/
-        var resultadoP = this.findObjectsByType('persona', this.map, 'ObjectLayer2')
-        //eval(" var persona" + i);
-        // noinspection JSAnnotator
-        var i = "1";
-        eval("var persona" + i);
-        persona1 = this.game.add.sprite(resultadoP[0].x, resultadoP[0].y, "persona1");
-        //this.persona.input.up = true;
-        //this.persona.scale.setTo(-1, 1);
-        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
-        //this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+            this.persona = this.game.add.button(resultadoP[i].x, resultadoP[i].y, FotoPersona[i]);
+            this.persona.input.up = true;
+            this.persona.scale.setTo(-1, 1);
+            this.persona.events.onInputDown.add(this.CrearDialogo,this.persona);
+        }
+
+        this.personaFinal = this.game.add.button(resultadoP[4].x, resultadoP[4].y, FotoPersona[4]);
+        this.personaFinal.scale.setTo(-1, 1)
+        this.personaFinal.input.up = true;
+        this.personaFinal.events.onInputDown.add(this.viejoFinal,this.personaFinal);
+
 
         //Crear el dialogo en el mapa
 
-        for (var i = 0; i < 9; i++){
+        for (var i = 0; i < 4; i++){
             var resultadoD = this.findObjectsByType('dialogo', this.map, 'ObjectLayer1')
 
             this.dialogo = this.game.add.sprite(resultadoD[i].x, resultadoD[i].y, FotoDialogo[i]);
@@ -198,14 +192,6 @@ Game.Level1.prototype = {
 
        // this.dialogo.anchor.setTo(0.5, 0.5);
 
-        //Cerrar
-        var resultadoC = this.findObjectsByType('cerrar', this.map, 'ObjectLayer2')
-        for (var i = 0; i < 6; i++){
-            this.cerrar = this.game.add.button(resultadoC[i].x, resultadoC[i].y, 'cerrar1');
-            this.cerrar.input.up = true;
-            this.cerrar.anchor.setTo(0.5, 0.5);
-            this.cerrar.events.onInputDown.add(this.CerrarDialogo,this.cerrar);
-        }
 
 
         //if (x == 0){this.dialogo.visible = false;}else{this.dialogo.visible = true;}
@@ -257,8 +243,7 @@ Game.Level1.prototype = {
 
         //this.fixedToCamera = true;
 
-        scoreText = this.game.add.text(this.camera.x, this.camera.y, 'score: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
-        scoreTextR = this.game.add.text(this.camera.x * -1, this.camera.y, 'scoreR: 0', { fontSize: '32px', fill: '#b60023', align: "left"});
+        scoreText = this.game.add.text(this.camera.x, this.camera.y, 'Zanahorias: 0', { fontSize: '32px', fill: '#b60023', align: "center"});
 
     },
 
@@ -355,8 +340,6 @@ Game.Level1.prototype = {
 
         scoreText.x = this.game.camera.x;
         scoreText.y = this.game.camera.y;
-        scoreTextR.x = this.game.camera.x * -1;
-        scoreTextR.y = this.game.camera.y;
 
         this.physics.arcade.collide(this.player,this.plataforma);
         //this.physics.arcade.collide(this.player,this.invisible);
@@ -365,6 +348,7 @@ Game.Level1.prototype = {
         if(r == 1){
           this.puerta.kill();
           this.puerta.visible = false;
+          this.physics.arcade.collide(this.player,this.puerta2);
         }
         else if(r == 2){
           this.puerta2.kill();
@@ -372,9 +356,9 @@ Game.Level1.prototype = {
         }
         else{
           this.physics.arcade.collide(this.player,this.puerta);
-          this.physics.arcade.collide(this.player,this.puerta2);
         }
 
+        this.physics.arcade.collide(this.player,this.personaFinal);
         //revisar el 'overlap' o la sobrepocicion de las estrellas con el jugador
         this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 
@@ -382,7 +366,9 @@ Game.Level1.prototype = {
 
         this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
-        if(m == 3){
+        //this.game.physics.arcade.overlap(this.player, this.personaFinal, this.viejoFinal, null, this);
+
+        if(m >= 3){
         this.rec.visible = true;
         this.game.physics.arcade.overlap(this.player, this.rec, this.collect2, null, this);
       }
@@ -518,17 +504,10 @@ Game.Level1.prototype = {
 
     death:function(){
         death.play();
-        this.killplayer();
+        //this.killplayer();
+        alert("Intentalo de nuevo");
         this.game.state.start("Level1");
     },
-
-/*
-    moveEnemy:function (enemigo,plataforma){
-    if(enemigo.enemySpeed>0 && enemigo.x>plataforma.x+plataforma.width/2 || enemigo.enemySpeed<0 && enemigo.x<plataforma.x-plataforma.width/2){
-        enemigo.enemySpeed*=-70;
-    }
-    },
-    */
 
     playerAttack: function () {
         //Change image and update the body size for the physics engine
@@ -545,8 +524,8 @@ Game.Level1.prototype = {
 
     collect: function(player, collectable) {
         console.log('yummy!');
-        score += 50;
-        scoreText.text = 'Score: ' + score;
+        score += 1;
+        scoreText.text = 'Zanahorias: ' + score;
        carrot.play();
         //remove sprite
         collectable.destroy();
@@ -554,16 +533,20 @@ Game.Level1.prototype = {
     collect2: function(player, collectable) {
         r = r + 1;
         reci.play();
+        if(r==1){
+          alert("Haz conseguido la 1era R! RECICLA: “Reciclar es más que una acción, es el valor de la responsabilidad por preservar los recursos naturales");
+        }
+        else if(r==2){
+          alert("Haz conseguido la 2da R! REUTILIZA: “Las aguas procedentes de los desagües de lavadoras, bañeras o fregaderos, serían, tras la aplicación de un simple tratamiento, perfectas para el riego de zonas verdes o el uso en cisternas, así como para limpieza de exteriores.");
+        }
+        else{
+          alert("Haz conseguido la 3era R! REDUCE: “Sustituye las bolsas de plástico de la compra por bolsas de materiales reutilizables”");
+        }
         collectable.destroy();
     },
 
-    collectR: function(player, collectable) {
-        console.log('yummy!');
-        scoreR += 50;
-        scoreTextR.text = 'Score: ' + score;
-        carrot.play();
-        //remove sprite
-        collectable.destroy();
+    viejoFinal: function(player, personaFinal) {
+        alert("Gracias, por juegar, un juego creador por Alexander Barroso y Agustin Valedez");
     },
 
     enterDoor: function(player, door) {

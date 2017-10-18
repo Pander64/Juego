@@ -102,7 +102,7 @@ Game.Preloader.prototype = {
 
         setTimeout(function () {
             //Se inicia el tercer estado del juego
-            game.state.start('Level1');
+            game.state.start('MainMenu');
         }, 1000);
 
 
