@@ -14,9 +14,6 @@ Game.Boot.prototype = {
     preload:function () {
         //Se cargan Imagenes y archivos de recurso
 
-        //Color de fondo, por defecto es negro
-        //this.game.stage.backgroundColor = 'black';
-
         //Se carga la imagen que muestra la carga
         this.load.image('loading','assets/imagenes/Intro/loading.png');
         this.load.image('stars', 'assets/imagenes/Intro/stars.jpg');
