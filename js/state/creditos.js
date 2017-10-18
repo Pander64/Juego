@@ -2,8 +2,6 @@ Game.creditos = function(game) {
 
 };
 
-
-
 Game.creditos.prototype = {
 
     menuConfig: {
@@ -28,13 +26,6 @@ Game.creditos.prototype = {
         this.add.sprite(0, 0, 'creditos');
         this.add.existing(this.titleText);
 
-        this.addMenuOption('', function () {
-            game.state.start("Level1");
-        });
-
-        this.addMenuOption('', function () {
-            game.state.start("Level1");
-        });
         this.addMenuOption('Aceptar', function () {
             game.state.start("MainMenu");
         });
